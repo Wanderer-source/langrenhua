@@ -852,7 +852,46 @@
     bindSmoothScroll();
     initBackground();
     initBackgroundFX();
+    initCursorFX();
     initBGM();
+  }
+
+  /* ---------- 鼠标跟随柔光晕 ----------
+     仅在精确指针（鼠标）设备启用；触屏 / 晕动症偏好下自动关闭。
+     用 rAF 缓动让光晕带一点拖尾，悬停可交互元素时放大。 */
+  function initCursorFX() {
+    if (!window.matchMedia) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+
+    var fx = document.createElement('div');
+    fx.className = 'cursor-glow';
+    fx.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(fx);
+
+    var tx = window.innerWidth / 2, ty = window.innerHeight / 2;
+    var cx = tx, cy = ty;
+
+    window.addEventListener('mousemove', function (e) {
+      tx = e.clientX; ty = e.clientY;
+      fx.classList.add('on');
+    }, { passive: true });
+    document.addEventListener('mouseleave', function () { fx.classList.remove('on'); });
+
+    (function loop() {
+      cx += (tx - cx) * 0.16;
+      cy += (ty - cy) * 0.16;
+      fx.style.transform = 'translate(' + cx + 'px,' + cy + 'px) translate(-50%,-50%)';
+      requestAnimationFrame(loop);
+    })();
+
+    var sel = 'a,button,.case-card,.cap-chip,.wf-tab,.music-play,.g-fig,.wf-step';
+    document.addEventListener('mouseover', function (e) {
+      if (e.target.closest && e.target.closest(sel)) fx.classList.add('big');
+    });
+    document.addEventListener('mouseout', function (e) {
+      if (e.target.closest && e.target.closest(sel)) fx.classList.remove('big');
+    });
   }
 
   /* 暴露给首页与子页共用 */

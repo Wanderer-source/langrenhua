@@ -61,19 +61,50 @@ img { display: block; max-width: 100%; }
 .bg-fx {
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
 }
-body > *:not(.bg-grid):not(.bg-noise):not(.bg-glow):not(.bg-orbs):not(.bg-particles):not(.bg-fx):not(.bg-aurora):not(.bgm) { position: relative; z-index: 1; }
+body > *:not(.bg-grid):not(.bg-noise):not(.bg-glow):not(.bg-orbs):not(.bg-particles):not(.bg-fx):not(.bg-aurora):not(.cursor-glow):not(.bgm) { position: relative; z-index: 1; }
 
 /* 全站动态极光背景：fixed 层，滚动时始终流动，呼应首屏视觉（方案A下 bg-glow 被隐藏，此层补上"活"感） */
 .bg-aurora { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-.bg-aurora i { position: absolute; border-radius: 50%; filter: blur(60px); opacity: .5; background: radial-gradient(circle, color-mix(in srgb, var(--accent) 70%, transparent), transparent 70%); animation: auroraMove 18s ease-in-out infinite; }
+.bg-aurora::before {
+  content: ""; position: absolute; inset: -25%;
+  background: conic-gradient(from 0deg,
+    transparent 0deg,
+    color-mix(in srgb, var(--accent) 16%, transparent) 80deg,
+    transparent 170deg,
+    color-mix(in srgb, #6a5cff 14%, transparent) 250deg,
+    transparent 360deg);
+  filter: blur(80px); opacity: .6; mix-blend-mode: screen;
+  animation: auroraSpin 42s linear infinite;
+}
+.bg-aurora i { position: absolute; border-radius: 50%; opacity: .55; mix-blend-mode: screen; will-change: transform, filter;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 75%, transparent), transparent 70%);
+  animation: auroraMove 18s ease-in-out infinite; }
 .bg-aurora i:nth-child(1) { width: 46vw; height: 46vw; left: -8vw; top: 6vh; }
-.bg-aurora i:nth-child(2) { width: 38vw; height: 38vw; right: -6vw; top: 38vh; background: radial-gradient(circle, color-mix(in srgb, #6a5cff 70%, transparent), transparent 70%); animation-delay: -6s; animation-duration: 22s; }
-.bg-aurora i:nth-child(3) { width: 42vw; height: 42vw; left: 18vw; bottom: -12vh; background: radial-gradient(circle, color-mix(in srgb, #ff5ca8 60%, transparent), transparent 70%); animation-delay: -12s; animation-duration: 26s; }
-@keyframes auroraMove { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(6vw,-4vh) scale(1.08); } 66% { transform: translate(-5vw,5vh) scale(.94); } }
+.bg-aurora i:nth-child(2) { width: 38vw; height: 38vw; right: -6vw; top: 38vh; background: radial-gradient(circle, color-mix(in srgb, #6a5cff 75%, transparent), transparent 70%); animation-delay: -6s; animation-duration: 22s; }
+.bg-aurora i:nth-child(3) { width: 42vw; height: 42vw; left: 18vw; bottom: -12vh; background: radial-gradient(circle, color-mix(in srgb, #ff5ca8 65%, transparent), transparent 70%); animation-delay: -12s; animation-duration: 26s; }
+.bg-aurora i:nth-child(4) { width: 34vw; height: 34vw; right: 12vw; bottom: 6vh; background: radial-gradient(circle, color-mix(in srgb, #2ee6c8 60%, transparent), transparent 70%); animation-delay: -3s; animation-duration: 30s; }
+@keyframes auroraMove {
+  0%,100% { transform: translate(0,0) scale(1) rotate(0deg); filter: blur(60px) hue-rotate(0deg); }
+  33% { transform: translate(7vw,-5vh) scale(1.1) rotate(10deg); filter: blur(60px) hue-rotate(28deg); }
+  66% { transform: translate(-6vw,6vh) scale(.92) rotate(-8deg); filter: blur(60px) hue-rotate(-22deg); }
+}
+@keyframes auroraSpin { to { transform: rotate(360deg); } }
 
 /* ---------- 进度条 ---------- */
 .progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 60; background: rgba(255,255,255,.06); }
 .progress i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 40%, #fff)); transition: width .1s linear; }
+
+/* ---------- 鼠标跟随柔光晕 ---------- */
+.cursor-glow {
+  position: fixed; top: 0; left: 0; width: 340px; height: 340px; border-radius: 50%;
+  pointer-events: none; z-index: 55;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 22%, transparent) 0%, transparent 66%);
+  mix-blend-mode: screen; opacity: 0; filter: blur(6px);
+  transition: opacity .45s ease, width .35s ease, height .35s ease;
+  will-change: transform;
+}
+.cursor-glow.on { opacity: 1; }
+.cursor-glow.big { width: 480px; height: 480px; }
 
 /* ---------- 导航 ---------- */
 .nav {
@@ -367,6 +398,8 @@ body > *:not(.bg-grid):not(.bg-noise):not(.bg-glow):not(.bg-orbs):not(.bg-partic
     opacity: 1 !important; transform: none !important; transition: none !important;
   }
   .section .sec-head::after { transform: scaleX(1) !important; }
+  .cursor-glow, .bg-aurora::before { display: none; }
+  .bg-aurora i { animation: none !important; }
   html { scroll-behavior: auto; }
 }
 
