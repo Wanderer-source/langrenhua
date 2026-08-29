@@ -278,20 +278,30 @@
     if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
     var vh = window.innerHeight || document.documentElement.clientHeight || 800;
 
+    // 进场后清除延迟，避免回落 hover 时仍被 transition-delay 拖慢。
+    function markIn(e) { e.classList.add('in'); setTimeout(function () { e.style.transitionDelay = ''; }, 1100); }
+
     // 兜底：比视口高得多的元素永远无法满足比例阈值（历史上曾导致整页 opacity:0 不可见），
     // 这类元素直接显示，不参与滚动揭示。
     var rest = [];
     els.forEach(function (e) {
       var h = e.offsetHeight || 0;
-      if (h > vh * 1.2) { e.classList.add('in'); } else { rest.push(e); }
+      if (h > vh * 1.2) { markIn(e); } else { rest.push(e); }
     });
     if (!rest.length) return;
+
+    // 同组兄弟元素错峰：进入视口时依次延迟淡入，形成层次。
+    var lastParent = null, grp = 0;
+    rest.forEach(function (e) {
+      if (e.parentNode !== lastParent) { lastParent = e.parentNode; grp = 0; } else { grp++; }
+      e.style.transitionDelay = Math.min(grp * 0.07, 0.45) + 's';
+    });
 
     // threshold 用 0：只要元素顶部进入（下边距收缩 10% 后的）视口即揭示，
     // 避免任何高度的元素因比例阈值永远触发不了。
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
-        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+        if (en.isIntersecting) { markIn(en.target); io.unobserve(en.target); }
       });
     }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
     rest.forEach(function (e) { io.observe(e); });
@@ -307,7 +317,7 @@
         if (e.classList.contains('in')) return false;
         var r = e.getBoundingClientRect();
         var arrived = r.height === 0 || (r.top < v * 0.95 && r.bottom > 0);
-        if (arrived) e.classList.add('in');
+        if (arrived) markIn(e);
         return !arrived;
       });
     };
