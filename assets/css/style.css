@@ -503,14 +503,24 @@ body > *:not(.bg-grid):not(.bg-noise):not(.bg-glow):not(.bg-orbs):not(.bg-partic
 .bg-particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
 
 /* ---------- 背景音乐开关 ---------- */
-.bgm { position: fixed; right: 22px; bottom: 22px; z-index: 70; display: flex; align-items: center; gap: 10px; }
+.bgm { position: fixed; right: 22px; bottom: 22px; z-index: 70; }
 .bgm-btn { width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--line); background: color-mix(in srgb, var(--bg) 72%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); color: var(--fg-dim); cursor: pointer; font-size: 18px; display: grid; place-items: center; transition: color .25s, background .25s, border-color .25s; box-shadow: 0 8px 24px rgba(0,0,0,.4); }
 .bgm-btn:hover { color: var(--fg); border-color: var(--accent); }
 .bgm-btn.on { color: #fff; background: var(--accent); border-color: var(--accent); animation: bgmPulse 2.2s infinite; }
-.bgm-tip { font-size: 12px; color: var(--fg-dim); background: color-mix(in srgb, var(--bg) 72%, transparent); padding: 6px 10px; border-radius: 14px; border: 1px solid var(--line-soft); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); opacity: 0; transform: translateX(8px); transition: opacity .25s, transform .25s; pointer-events: none; white-space: nowrap; }
-.bgm:hover .bgm-tip { opacity: 1; transform: none; }
 @keyframes bgmPulse { 0%{ box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent) } 70%{ box-shadow: 0 0 0 16px transparent } 100%{ box-shadow: 0 0 0 0 transparent } }
 .bgm-holder { position: fixed; left: -9999px; top: 0; width: 0; height: 0; overflow: hidden; }
+
+/* 弹出面板：点击小球才出现，内含真正的开关 */
+.bgm-pop { position: absolute; right: 0; bottom: 64px; width: 210px; padding: 16px 18px; border-radius: 16px; background: color-mix(in srgb, var(--bg) 78%, transparent); border: 1px solid var(--line); box-shadow: 0 12px 36px rgba(0,0,0,.5); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: none; }
+.bgm-pop.open { display: block; animation: bgmPopIn .18s ease; }
+@keyframes bgmPopIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.bgm-pop-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.bgm-pop-label { font-size: 14px; color: var(--fg); }
+.bgm-switch { position: relative; width: 46px; height: 26px; border-radius: 13px; border: 1px solid var(--line); background: color-mix(in srgb, var(--bg) 40%, #000 12%); cursor: pointer; transition: background .25s, border-color .25s; flex: none; }
+.bgm-switch .bgm-switch-knob { position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; border-radius: 50%; background: var(--fg-dim); transition: left .22s cubic-bezier(.2,.7,.2,1), background .22s; }
+.bgm-switch[aria-checked="true"] { background: var(--accent); border-color: var(--accent); }
+.bgm-switch[aria-checked="true"] .bgm-switch-knob { left: 22px; background: #fff; }
+.bgm-pop-note { margin: 10px 0 0; font-size: 12px; color: var(--fg-faint); }
 
 /* ---------- 子页目录（合集导航） ---------- */
 .case-toc { position: sticky; top: 84px; z-index: 20; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 6px 0 30px; padding: 12px 14px; background: color-mix(in srgb, var(--bg-card) 80%, transparent); border: 1px solid var(--line-soft); border-radius: 14px; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }

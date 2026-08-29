@@ -555,16 +555,27 @@
       } catch (e) {}
     }
 
-    /* 开关 UI */
+    /* 开关 UI：右下角小球仅作为“打开设置”入口，点击弹出面板，面板内的开关才真正控制音乐 */
     var wrap = document.createElement('div');
     wrap.className = 'bgm';
     wrap.innerHTML =
-      '<button class="bgm-btn" id="bgmBtn" type="button" aria-pressed="false" aria-label="背景音乐开关">' +
-      '<span class="bgm-ico">♪</span></button>' +
-      '<span class="bgm-tip" id="bgmTip">背景音乐 · 关</span>';
+      '<div class="bgm-pop" id="bgmPop" role="dialog" aria-label="背景音乐开关">' +
+        '<div class="bgm-pop-row">' +
+          '<span class="bgm-pop-label">背景音乐</span>' +
+          '<button class="bgm-switch" id="bgmSwitch" type="button" role="switch" aria-checked="false">' +
+            '<span class="bgm-switch-knob"></span>' +
+          '</button>' +
+        '</div>' +
+        '<p class="bgm-pop-note" id="bgmPopNote">已关闭</p>' +
+      '</div>' +
+      '<button class="bgm-btn" id="bgmBtn" type="button" aria-label="打开背景音乐开关">' +
+        '<span class="bgm-ico">♪</span>' +
+      '</button>';
     document.body.appendChild(wrap);
     var btn = wrap.querySelector('#bgmBtn');
-    var tip = wrap.querySelector('#bgmTip');
+    var pop = wrap.querySelector('#bgmPop');
+    var sw = wrap.querySelector('#bgmSwitch');
+    var popNote = wrap.querySelector('#bgmPopNote');
 
     function emit() {
       try {
@@ -576,29 +587,19 @@
     }
     function syncBtn() {
       if (!BGM.ready) {
-        // 音源未接入时隐藏开关，避免展示上出现点了没反应的死按钮
+        // 音源未接入时隐藏整个控件，避免展示上出现点了没反应的死按钮
         wrap.style.display = 'none';
-        btn.classList.remove('on');
-        btn.classList.add('na');
-        btn.setAttribute('aria-pressed', 'false');
-        tip.textContent = '背景音乐 · 音源待接入';
+        if (sw) sw.setAttribute('aria-checked', 'false');
+        if (popNote) popNote.textContent = '音源待接入';
         return;
       }
       wrap.style.display = '';
-      btn.classList.remove('na');
-      if (BGM.playing) {
-        btn.classList.add('on');
-        btn.setAttribute('aria-pressed', 'true');
-        tip.textContent = '背景音乐 · 播放中';
-      } else if (BGM.intend) {
-        btn.classList.add('on');
-        btn.setAttribute('aria-pressed', 'true');
-        tip.textContent = '背景音乐 · 播放中';
-      } else {
-        btn.classList.remove('on');
-        btn.setAttribute('aria-pressed', 'false');
-        tip.textContent = '背景音乐 · 关';
-      }
+      var on = BGM.playing || BGM.intend;
+      if (sw) sw.setAttribute('aria-checked', on ? 'true' : 'false');
+      if (popNote) popNote.textContent = on ? '播放中' : '已关闭';
+      // 小球不再直接控制音乐，仅作状态指示（亮起=播放中）+ 弹出入口
+      if (on) btn.classList.add('on'); else btn.classList.remove('on');
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
     }
 
     function tryPlay(cb) {
@@ -628,8 +629,9 @@
     }
     function setPref(v) { try { localStorage.setItem('bgm', v); } catch (e) {} }
 
-    btn.addEventListener('click', function () {
-      userGestured = true; ensureAudioGraph();
+    /* 小球：仅打开/关闭弹出面板，不直接控制音乐 */
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
       if (!BGM.ready) {
         // 音源未接入：跳到「原创音乐」板块，用网易云播放器听
         var target = document.getElementById('musicCard') || document.getElementById('film');
@@ -637,8 +639,26 @@
         else if (m.link) window.open(m.link, '_blank', 'noopener');
         return;
       }
-      if (BGM.playing) { pause(); setPref('off'); BGM.intend = false; }
-      else { play(); setPref('on'); BGM.intend = true; }
+      pop.classList.toggle('open');
+    });
+
+    /* 弹出面板内的开关：才是真正控制音乐的地方 */
+    function setMusic(on) {
+      userGestured = true; ensureAudioGraph();
+      if (!BGM.ready) return;
+      // 先更新 intend，再 play/pause（其内的 emit→syncBtn 才能读到正确状态，避免 UI 卡在旧值）
+      BGM.intend = on;
+      setPref(on ? 'on' : 'off');
+      if (on) play(); else pause();
+    }
+    sw.addEventListener('click', function (e) {
+      e.stopPropagation();
+      setMusic(!(BGM.playing || BGM.intend));
+    });
+
+    /* 点击面板以外区域自动收起 */
+    document.addEventListener('click', function (e) {
+      if (pop.classList.contains('open') && !wrap.contains(e.target)) pop.classList.remove('open');
     });
 
     /* 音源可用性 */
@@ -691,8 +711,12 @@
         pause: function () { pause(); setPref('off'); BGM.intend = false; },
         toggle: function () {
           if (!BGM.ready) return false;
-          if (BGM.playing) { pause(); setPref('off'); BGM.intend = false; } else { play(); setPref('on'); BGM.intend = true; }
-          return !BGM.playing;
+          // 基于“有效播放态”取反，先设 intend 再 play/pause，保证 UI 同步
+          var on = !(BGM.playing || BGM.intend);
+          BGM.intend = on;
+          setPref(on ? 'on' : 'off');
+          if (on) play(); else pause();
+          return on;
         },
         isPlaying: function () { return BGM.playing; },
         isReady: function () { return BGM.ready; },
