@@ -13,6 +13,14 @@
   function pad(n) { return (n < 10 ? '0' : '') + n; }
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
+  /* GitHub Pages 在国内访问慢，把大媒体（视频/音频/图）走 jsDelivr CDN 加速 */
+  var CDN_BASE = 'https://cdn.jsdelivr.net/gh/Wanderer-source/langrenhua@main/';
+  function cdn(u) {
+    if (!u) return u;
+    if (/^https?:\/\//i.test(u)) return u;
+    return CDN_BASE + String(u).replace(/^\.\//, '').replace(/^\//, '');
+  }
+
   function onImgErr(e) {
     var im = e.target;
     im.style.opacity = '0';
@@ -212,7 +220,7 @@
         var pw = item.querySelector('.poster-wrap');
         var vid = document.createElement('video');
         vid.controls = true; vid.autoplay = true; vid.playsInline = true;
-        vid.src = src;
+        vid.src = cdn(src);
         vid.addEventListener('error', function () {
           pw.innerHTML = '<span class="v-err">视频加载失败，请检查网络或本地文件</span>';
         });
@@ -469,8 +477,8 @@
 
     var audio = new Audio();
     audio.loop = true;
-    // 音源有数 MB，用 metadata 只先取元信息，避免一进页面就整首下载；
-    // 真正点播放时浏览器才会续拉音频数据。
+    // 音源有数 MB，但 preload=metadata 只取元信息（几 KB），不预下载整首；
+    // 真正点播放时浏览器才续拉音频数据，首屏不背整首下载。
     audio.preload = 'metadata';
     audio.volume = 0;
     audio.setAttribute('playsinline', '');
@@ -615,7 +623,7 @@
 
     /* 音源可用性 */
     if (src) {
-      audio.src = src;
+      audio.src = cdn(src);
       function markReady() { if (!BGM.ready) { BGM.ready = true; emit(); } }
       // preload=metadata 下 canplay 不一定触发，故两个事件都听
       audio.addEventListener('loadedmetadata', markReady);
