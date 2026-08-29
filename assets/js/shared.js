@@ -274,7 +274,7 @@
   }
 
   function initReveal() {
-    var els = $all('.reveal');
+    var els = $all('.reveal, .sec-head, .about-item, .cap-chip, .case-card, .wf-step, .v-item');
     if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
     var vh = window.innerHeight || document.documentElement.clientHeight || 800;
 
