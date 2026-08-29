@@ -212,6 +212,30 @@ body > *:not(.bg-grid):not(.bg-noise):not(.bg-glow):not(.bg-orbs):not(.bg-partic
 /* ---------- 案例 ---------- */
 .case-section { padding: 96px 0; border-top: 1px solid var(--line-soft); position: relative; content-visibility: auto; contain-intrinsic-size: auto 1400px; }
 .case-page.wrap { width: 64vw; max-width: 920px; margin: 0 auto; padding-left: 0; padding-right: 0; }
+
+/* ---------- 产品页加载提示（图片较多时友好提醒） ---------- */
+.case-load-hint {
+  display: flex; align-items: center; gap: 10px;
+  margin: 0 0 28px; padding: 11px 16px;
+  font-size: 13.5px; letter-spacing: .02em; line-height: 1.4;
+  color: color-mix(in srgb, var(--fg) 80%, transparent);
+  background: color-mix(in srgb, var(--accent) 9%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent);
+  border-left: 3px solid var(--accent);
+  border-radius: 10px;
+}
+.case-load-hint .clh-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex: none;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent);
+  animation: clhPulse 1.7s ease-out infinite;
+}
+.case-load-hint .clh-text { font-weight: 500; }
+@keyframes clhPulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent); }
+  70% { box-shadow: 0 0 0 8px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
 .case-section::before {
   content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
   background: linear-gradient(90deg, transparent, var(--theme), transparent);
@@ -409,6 +433,7 @@ body > *:not(.bg-grid):not(.bg-noise):not(.bg-glow):not(.bg-orbs):not(.bg-partic
   .section .sec-head::after { transform: scaleX(1) !important; }
   .cursor-glow, .cursor-ring, .bg-aurora::before { display: none; }
   .bg-aurora i { animation: none !important; }
+  .case-load-hint .clh-dot { animation: none; }
   html { scroll-behavior: auto; }
 }
 

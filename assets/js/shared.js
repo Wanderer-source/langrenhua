@@ -157,6 +157,14 @@
     }).join('') + '</div>';
   }
 
+  /* ---------- 产品页加载提示（图片较多时友好提醒） ---------- */
+  function caseLoadHintHTML() {
+    return '<div class="case-load-hint" role="status">' +
+      '<span class="clh-dot" aria-hidden="true"></span>' +
+      '<span class="clh-text">本页图片较多，加载可能稍慢，请耐心等待</span>' +
+      '</div>';
+  }
+
   /* ---------- 标准电商案例（返回 {html, toc}） ---------- */
   function renderStandardCase(c) {
     var secs = [];
@@ -167,6 +175,7 @@
     var h = '';
     h += '<section class="case-section" id="case-' + c.id + '" data-theme="' + c.theme.hex + '" style="--theme:' + c.theme.hex + ';--glow:' + c.theme.glow + '">';
     h += caseHeader(c);
+    h += caseLoadHintHTML();
     h += projectBarHTML(c);
     h += caseMetaHTML(c);
     h += block('s-strat', '01', '策略 / 视觉 / 难点', 'STRATEGY', c.cat, strategyHTML(c.strategy));
@@ -191,6 +200,7 @@
     var h = '';
     h += '<section class="case-section case-ip" id="case-' + c.id + '" data-theme="' + c.theme.hex + '" style="--theme:' + c.theme.hex + ';--glow:' + c.theme.glow + '">';
     h += caseHeader(c);
+    h += caseLoadHintHTML();
     h += projectBarHTML(c);
     h += caseMetaHTML(c);
     h += block('s-strat', '01', '策略 / 视觉 / 难点', 'STRATEGY', c.cat, strategyHTML(c.strategy));
