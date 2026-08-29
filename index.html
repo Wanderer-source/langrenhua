@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>孙国华 · AIGC 视觉设计师 — 作品集</title>
+<meta name="description" content="孙国华，AIGC 视觉设计师。电商视觉、商业影像、IP 设计、提示词工程。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23080a0c'/%3E%3Ctext x='16' y='24' font-family='serif' font-size='21' font-weight='700' fill='%23f2582a' text-anchor='middle'%3E%E5%AD%99%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- 全局背景 -->
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="bg-noise" aria-hidden="true"></div>
+<div class="bg-glow" id="bgGlow" aria-hidden="true"></div>
+<div class="progress"><i id="progressBar"></i></div>
+
+<!-- 导航 -->
+<header class="nav" id="nav">
+  <a href="index.html#top" class="nav-brand">
+    <span class="nav-name">孙国华</span>
+    <span class="nav-role">AIGC 视觉设计师</span>
+  </a>
+  <nav class="nav-links" id="navLinks"></nav>
+  <a href="index.html#contact" class="nav-cta">联系</a>
+</header>
+
+<!-- Hero -->
+<section class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true">
+    <img class="hero-poster" src="assets/img/hero-bg.jpg" alt="">
+    <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/img/hero-bg.jpg">
+      <source src="assets/video/hero-bg.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="wrap hero-wrap">
+    <div class="hero-left">
+      <div class="hero-tag"><span class="dot"></span><span>2026 作品集 · 求职中</span></div>
+      <div class="hero-en" id="heroEn"></div>
+      <h1 class="hero-title" id="heroTitle"></h1>
+      <p class="hero-lede" id="heroLede"></p>
+      <div class="hero-cta-row">
+        <a href="#works" class="btn btn-primary">浏览作品</a>
+        <a href="#contact" class="btn btn-ghost">联系我</a>
+      </div>
+      <div class="hero-badges" id="heroBadges"></div>
+    </div>
+    <div class="hero-right" id="heroStats"></div>
+  </div>
+  <div class="hero-scroll" aria-hidden="true"><span></span></div>
+</section>
+
+<!-- 关于 -->
+<section class="section about" id="about">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">00</span><h2 class="sec-title">我能交付什么</h2>
+      <p class="sec-lede">不止出图。从品牌理解到商业落地，我交付的是一条可复用的视觉生产链路。</p>
+    </div>
+    <div class="about-grid" id="aboutGrid"></div>
+  </div>
+</section>
+
+<!-- 能力标签云 -->
+<section class="section cap-sec" id="capabilities">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">能力图谱</h2>
+      <p class="sec-lede">CAPABILITIES — 把提示词、分镜、视觉、影像、流程标准化揉进一个工具箱。</p>
+    </div>
+    <div class="cap-cloud" id="capCloud"></div>
+  </div>
+</section>
+
+<!-- 作品入口 -->
+<section class="section works-sec" id="works">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">作品合集</h2>
+      <p class="sec-lede">四个独立作品合集，点开任意一张卡片进入专属页面，再逐段查看从原图到成片的完整链路。每个合集都有目录与返回入口。</p>
+    </div>
+    <div class="work-filter" id="workFilter"></div>
+    <div class="case-cards" id="caseCards"></div>
+  </div>
+</section>
+
+<!-- 标准工作流 -->
+<section class="section wf-sec" id="wf">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">标准工作流</h2>
+      <p class="sec-lede">AIGC WORKFLOW — 每一条商业项目，都按「需求 → 脚本 → 生成 → 精修 → 交付」的标准化链路推进，工具可以换，流程不会乱。</p>
+    </div>
+    <div class="wf-steps" id="wfSteps"></div>
+  </div>
+</section>
+
+<!-- 影像与音乐 -->
+<section class="section film-sec" id="film">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <h2 class="sec-title">影像与音乐</h2>
+      <p class="sec-lede">商业广告已在各案例页逐支展示。这里放的是个人短片练习与我的原创音乐——没有产品约束，纯看题材开发与氛围控制。</p>
+    </div>
+    <div class="music-card" id="musicCard"></div>
+    <div class="block">
+      <div class="block-head"><h3>AI 短片</h3><span class="block-count">3 支 · 题材与美术方向各不相同</span></div>
+      <div class="video-grid grid-2" id="shortGrid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 方法 / 本地工具链 -->
+<section class="section method-sec" id="method">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <h2 class="sec-title">工作流与方法</h2>
+      <p class="sec-lede">AIGC 设计师的壁垒不在会用哪个工具，而在工具失效时还能不能出活，以及能不能把同一个创意翻译成不同模型听得懂的语言。</p>
+    </div>
+    <div id="methodContent"></div>
+  </div>
+</section>
+
+<!-- 联系 -->
+<section class="section contact-sec" id="contact">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">联系</h2></div>
+    <div class="contact-grid" id="contactGrid"></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <span>孙国华 · AIGC 视觉设计师</span>
+    <span class="foot-sep">|</span>
+    <span>电商视觉 · 商业影像 · IP 设计 · 提示词工程</span>
+    <span class="foot-right">作品集 2026</span>
+  </div>
+</footer>
+
+<!-- 灯箱 -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lb-close" id="lbClose" aria-label="关闭">✕</button>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="上一张">‹</button>
+  <button class="lb-nav lb-next" id="lbNext" aria-label="下一张">›</button>
+  <div class="lb-stage"><img id="lbImg" alt=""></div>
+  <div class="lb-count" id="lbCount"></div>
+</div>
+
+<script src="assets/data/cases.js"></script>
+<script src="assets/js/shared.js"></script>
+<script src="assets/js/index.js"></script>
+</body>
+</html>

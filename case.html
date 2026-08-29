@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>项目 · 孙国华作品集</title>
+<meta name="description" content="孙国华 AIGC 视觉设计作品详情">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="bg-noise" aria-hidden="true"></div>
+<div class="bg-glow" id="bgGlow" aria-hidden="true"></div>
+<div class="progress"><i id="progressBar"></i></div>
+
+<header class="nav" id="nav">
+  <a href="index.html" class="nav-brand">
+    <span class="nav-name">孙国华</span>
+    <span class="nav-role">AIGC 视觉设计师</span>
+  </a>
+  <nav class="nav-links">
+    <a href="index.html">← 返回作品集</a>
+  </nav>
+  <a href="index.html#contact" class="nav-cta">联系</a>
+</header>
+
+<main id="caseMount" class="wrap case-page" style="padding-top:110px;padding-bottom:60px"></main>
+
+<footer class="footer">
+  <div class="wrap">
+    <span>孙国华 · AIGC 视觉设计师</span>
+    <span class="foot-sep">|</span>
+    <span>电商视觉 · 商业影像 · IP 设计 · 提示词工程</span>
+    <span class="foot-right">作品集 2026</span>
+  </div>
+</footer>
+
+<a class="fab-back" href="index.html" aria-label="返回作品集">← 返回作品集</a>
+
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lb-close" id="lbClose" aria-label="关闭">✕</button>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="上一张">‹</button>
+  <button class="lb-nav lb-next" id="lbNext" aria-label="下一张">›</button>
+  <div class="lb-stage"><img id="lbImg" alt=""></div>
+  <div class="lb-count" id="lbCount"></div>
+</div>
+
+<script src="assets/data/cases.js"></script>
+<script src="assets/js/shared.js"></script>
+<script src="assets/js/case.js"></script>
+</body>
+</html>
