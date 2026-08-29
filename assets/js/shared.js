@@ -742,6 +742,28 @@
   /* ---------- 背景氛围特效：漂浮星点 + 音乐联动 + 鼠标互动 ----------
      强度随场景：首页首屏显眼 → 下滑渐弱；产品子页克制专注看图。 */
   var bgfxInited = false;
+  function initNavToggle() {
+    var btn = document.getElementById('navToggle');
+    var links = document.querySelector('.nav-links');
+    if (!btn || !links) return;
+    function close() { links.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); btn.classList.remove('active'); }
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = links.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.classList.toggle('active', open);
+    });
+    links.addEventListener('click', function (e) {
+      if (e.target.closest('a') && links.classList.contains('open')) close();
+    });
+    document.addEventListener('click', function (e) {
+      if (links.classList.contains('open') && !links.contains(e.target) && e.target !== btn) close();
+    });
+    if (window.matchMedia) {
+      window.matchMedia('(min-width: 621px)').addEventListener('change', function (ev) { if (ev.matches) close(); });
+    }
+  }
+
   function initBackgroundFX() {
     if (bgfxInited) return; bgfxInited = true;
     // 背景改为克制风格：关闭呼吸粒子层（参考同学作品集：纯色/极简，无粒子特效）。
@@ -887,6 +909,7 @@
     initBackgroundFX();
     initCursorFX();
     initBGM();
+    initNavToggle();
   }
 
   /* ---------- 鼠标跟随柔光晕 ----------
