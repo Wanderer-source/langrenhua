@@ -598,8 +598,11 @@
       if (sw) sw.setAttribute('aria-checked', on ? 'true' : 'false');
       if (popNote) popNote.textContent = on ? '播放中' : '已关闭';
       // 小球不再直接控制音乐，仅作状态指示（亮起=播放中）+ 弹出入口
+      var pending = on && !BGM.playing;   // 想开但被自动播放策略拦截，等首次手势补播
       if (on) btn.classList.add('on'); else btn.classList.remove('on');
+      if (pending) btn.classList.add('pending'); else btn.classList.remove('pending');
       btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      btn.setAttribute('aria-label', pending ? '点击页面任意处开启背景音乐' : (on ? '背景音乐播放中' : '背景音乐已关闭'));
     }
 
     function tryPlay(cb) {
@@ -663,7 +666,10 @@
 
     /* 音源可用性 */
     if (src) {
-      audio.src = cdn(src);
+      // 音源走本地相对路径，不依赖外部 CDN：一旦 jsDelivr 访问不稳/断网，
+      // 外链加载失败会导致 BGM.ready 永为 false、控件被隐藏、音乐彻底失效。
+      // 本地文件随站点同源部署（GitHub Pages 同样可服务），稳定且加载快。
+      audio.src = src;
       function markReady() { if (!BGM.ready) { BGM.ready = true; emit(); } }
       // preload=metadata 下 canplay 不一定触发，故两个事件都听
       audio.addEventListener('loadedmetadata', markReady);
@@ -688,7 +694,10 @@
         if (!BGM.ready) return;
         play(function (ok) { if (ok) offKick(); });
       }
-      function kick() {
+      function kick(e) {
+        // 点击/按键落在 BGM 控件本身时，交给控件自己的 handler 决定，
+        // 避免自动 play 抢跑导致「开关取反」冲突（点了反而关）
+        if (wrap && e && e.target && wrap.contains(e.target)) return;
         userGestured = true; ensureAudioGraph();
         if (BGM.playing) { offKick(); return; }
         start();
@@ -701,7 +710,8 @@
       else audio.addEventListener('canplay', start, { once: true });
       document.addEventListener('pointerdown', kick);
       document.addEventListener('keydown', kick);
-      setTimeout(offKick, 15000);
+      // 不设置超时：首次交互补播监听一直保留，直到真正播放成功才移除，
+      // 避免用户 15 秒内没操作就永久失去“默认开启”机会。
     }
 
     /* 供「原创音乐」板块复用同一音源 */
