@@ -506,24 +506,13 @@
     document.body.appendChild(audio);
     BGM.el = audio;
 
-    /* 音频分析（供背景可视化联动）：把 audio 接到 Web Audio AnalyserNode。
-       仅在用户手势后启用，避免无手势时 ctx 被 suspend 而静音。 */
-    var AC = window.AudioContext || window.webkitAudioContext;
+    /* 背景可视化当前未启用（initBackgroundFX 提前 return），
+       故不把 <audio> 接入 Web Audio 的 MediaElementSource——
+       该链路在 AudioContext 处于 suspended 时会让整条音频静音，
+       正是“显示播放中却听不到声音”的隐患。直接由 audio 元素输出最稳妥。
+       如日后重新启用音乐可视化，需先 actx.resume() 并确认 running 后再播放。 */
     var actx = null, analyser = null, freqData = null, userGestured = false;
-    function ensureAudioGraph() {
-      if (analyser || !userGestured || !AC) return;
-      try {
-        actx = new AC();
-        var srcNode = actx.createMediaElementSource(audio);
-        analyser = actx.createAnalyser();
-        analyser.fftSize = 256;
-        analyser.smoothingTimeConstant = 0.82;
-        freqData = new Uint8Array(analyser.frequencyBinCount);
-        srcNode.connect(analyser);
-        analyser.connect(actx.destination);
-        if (actx.state === 'suspended' && actx.resume) actx.resume();
-      } catch (e) { analyser = null; actx = null; }
-    }
+    function ensureAudioGraph() { /* viz disabled: 不创建音频图，audio 直连扬声器 */ }
 
     /* 淡入淡出，避免开关时声音突兀 */
     var fadeTimer = null;
