@@ -864,33 +864,40 @@
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     if (!window.matchMedia('(pointer: fine)').matches) return;
 
-    var fx = document.createElement('div');
-    fx.className = 'cursor-glow';
-    fx.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(fx);
+    var glow = document.createElement('div');
+    glow.className = 'cursor-glow';
+    glow.setAttribute('aria-hidden', 'true');
+    var ring = document.createElement('div');
+    ring.className = 'cursor-ring';
+    ring.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(glow);
+    document.body.appendChild(ring);
 
     var tx = window.innerWidth / 2, ty = window.innerHeight / 2;
-    var cx = tx, cy = ty;
+    var gx = tx, gy = ty, rx = tx, ry = ty;
 
+    function show() { glow.classList.add('on'); ring.classList.add('on'); }
+    function hide() { glow.classList.remove('on'); ring.classList.remove('on'); }
     window.addEventListener('mousemove', function (e) {
-      tx = e.clientX; ty = e.clientY;
-      fx.classList.add('on');
+      tx = e.clientX; ty = e.clientY; show();
     }, { passive: true });
-    document.addEventListener('mouseleave', function () { fx.classList.remove('on'); });
+    document.addEventListener('mouseleave', hide);
+    window.addEventListener('blur', hide);
 
     (function loop() {
-      cx += (tx - cx) * 0.16;
-      cy += (ty - cy) * 0.16;
-      fx.style.transform = 'translate(' + cx + 'px,' + cy + 'px) translate(-50%,-50%)';
+      gx += (tx - gx) * 0.16; gy += (ty - gy) * 0.16;   // 柔光晕：带拖尾
+      rx += (tx - rx) * 0.30; ry += (ty - ry) * 0.30;   // 光标环：跟得更紧
+      glow.style.transform = 'translate(' + gx + 'px,' + gy + 'px) translate(-50%,-50%)';
+      ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px) translate(-50%,-50%)';
       requestAnimationFrame(loop);
     })();
 
     var sel = 'a,button,.case-card,.cap-chip,.wf-tab,.music-play,.g-fig,.wf-step';
     document.addEventListener('mouseover', function (e) {
-      if (e.target.closest && e.target.closest(sel)) fx.classList.add('big');
+      if (e.target.closest && e.target.closest(sel)) { glow.classList.add('big'); ring.classList.add('big'); }
     });
     document.addEventListener('mouseout', function (e) {
-      if (e.target.closest && e.target.closest(sel)) fx.classList.remove('big');
+      if (e.target.closest && e.target.closest(sel)) { glow.classList.remove('big'); ring.classList.remove('big'); }
     });
   }
 
