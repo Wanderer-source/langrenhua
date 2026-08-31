@@ -13,11 +13,18 @@
   function pad(n) { return (n < 10 ? '0' : '') + n; }
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
-  /* 媒体一律走同源相对路径，不再转 jsDelivr CDN。
-     原因：jsDelivr 在国内访问不稳定（实测响应 3.5s 且偶发失败），
-     曾导致 hero 背景视频播不出来（只剩静态图）、BGM 音源加载失败。
-     改走 GitHub Pages 同源后实测 0.83s 且稳定。 */
-  function cdn(u) { return u; }
+  /* 大媒体（视频/音频）走 jsDelivr CDN 加速。
+     实测（两轮完整下载取样）：jsDelivr 312-371KB/s 且稳定；
+     GitHub Pages 同源仅 39-108KB/s 且抖动剧烈（国内访问慢）。
+     故主源走 CDN，加载出错时再降级到同源相对路径。 */
+  var CDN_BASE = 'https://cdn.jsdelivr.net/gh/Wanderer-source/langrenhua@main/';
+  function cdn(u) {
+    if (!u) return u;
+    if (/^https?:\/\//i.test(u)) return u;
+    return CDN_BASE + String(u).replace(/^\.\//, '').replace(/^\//, '');
+  }
+  /* CDN 不可用时降级为同源路径，避免资源彻底失效 */
+  function localSrc(u) { return String(u).replace(CDN_BASE, ''); }
 
   function onImgErr(e) {
     var im = e.target;
@@ -653,15 +660,18 @@
 
     /* 音源可用性 */
     if (src) {
-      // 音源走本地相对路径，不依赖外部 CDN：一旦 jsDelivr 访问不稳/断网，
-      // 外链加载失败会导致 BGM.ready 永为 false、控件被隐藏、音乐彻底失效。
-      // 本地文件随站点同源部署（GitHub Pages 同样可服务），稳定且加载快。
-      audio.src = src;
+      // 主源走 jsDelivr（实测 312-371KB/s，比 Pages 同源快约 6 倍；6.6MB 音频差距极大）；
+      // CDN 不可达时自动降级到同源相对路径，避免 BGM 彻底失效（ready 永 false → 控件被隐藏）。
+      var fellBack = false;
+      audio.src = cdn(src);
       function markReady() { if (!BGM.ready) { BGM.ready = true; emit(); } }
       // preload=metadata 下 canplay 不一定触发，故两个事件都听
       audio.addEventListener('loadedmetadata', markReady);
       audio.addEventListener('canplay', markReady);
-      audio.addEventListener('error', function () { BGM.ready = false; BGM.playing = false; emit(); });
+      audio.addEventListener('error', function () {
+        if (!fellBack) { fellBack = true; audio.src = localSrc(src); audio.load(); return; }
+        BGM.ready = false; BGM.playing = false; emit();
+      });
     } else {
       BGM.ready = false;
     }

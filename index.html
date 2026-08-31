@@ -31,8 +31,10 @@
 <!-- Hero -->
 <section class="hero" id="top">
   <div class="hero-bg" aria-hidden="true">
-    <img class="hero-poster" src="assets/img/hero-bg.jpg" alt="">
-    <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/img/hero-bg.jpg">
+    <img class="hero-poster" src="https://cdn.jsdelivr.net/gh/Wanderer-source/langrenhua@main/assets/img/hero-bg.jpg" alt="" onerror="this.src='assets/img/hero-bg.jpg'">
+    <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="https://cdn.jsdelivr.net/gh/Wanderer-source/langrenhua@main/assets/img/hero-bg.jpg">
+      <!-- 主源走 jsDelivr（实测 312-371KB/s，比 Pages 同源快约 6 倍）；失败自动降级到同源本地文件 -->
+      <source src="https://cdn.jsdelivr.net/gh/Wanderer-source/langrenhua@main/assets/video/hero-bg.mp4" type="video/mp4">
       <source src="assets/video/hero-bg.mp4" type="video/mp4">
     </video>
   </div>
