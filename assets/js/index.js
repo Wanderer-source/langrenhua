@@ -122,6 +122,32 @@
       '<div class="wf-tools">' + s.tools.map(function (t) { return '<span class="wf-tool">' + t + '</span>'; }).join('') + '</div></div>';
   }).join('');
 
+  /* ComfyUI 本地工作流（数据来自 cases.js 的 comfy 字段） */
+  var cf = D.comfy;
+  if (cf) {
+    var cs = cf.case;
+    var caseHtml = cs ? (
+      '<div class="cf-case reveal"><div class="cf-case-head"><h4>' + cs.title + '</h4><span class="cf-en">' + cs.en + '</span></div>' +
+      '<div class="cf-ba">' +
+      '<figure><div class="cf-shot"><img loading="lazy" decoding="async" src="' + cs.before.src + '" alt="' + cs.before.label + '" onerror="this.style.opacity=0"></div><figcaption>' + cs.before.label + '</figcaption></figure>' +
+      '<span class="cf-arrow">&rarr;</span>' +
+      '<figure><div class="cf-shot"><img loading="lazy" decoding="async" src="' + cs.after.src + '" alt="' + cs.after.label + '" onerror="this.style.opacity=0"></div><figcaption>' + cs.after.label + '</figcaption></figure>' +
+      '</div><p class="cf-case-desc">' + cs.desc + '</p></div>'
+    ) : '';
+    $('#wfComfy').innerHTML =
+      '<div class="cf-head"><h3>' + cf.title + '</h3><span class="cf-en">' + cf.en + '</span></div>' +
+      '<p class="cf-lede">' + cf.lede + '</p>' +
+      '<div class="cf-grid">' + cf.items.map(function (it) {
+        return '<figure class="cf-card reveal">' +
+          '<div class="cf-shot"><img loading="lazy" decoding="async" src="' + it.src + '" alt="' + it.name + '" onerror="this.style.opacity=0"></div>' +
+          '<figcaption><div class="cf-name"><span class="cf-i-num">' + it.num + '</span>' + it.name + '<em>' + it.en + '</em></div>' +
+          '<p class="cf-desc">' + it.desc + '</p>' +
+          '<div class="cf-tags">' + it.tags.map(function (t) { return '<span>' + t + '</span>'; }).join('') + '</div>' +
+          (it.shots ? '<div class="cf-shots">' + it.shots.map(function (s) { return '<img loading="lazy" decoding="async" src="' + s + '" alt="' + it.name + ' 工作流截图" onerror="this.style.opacity=0">'; }).join('') + '</div>' : '') +
+          '</figcaption></figure>';
+      }).join('') + '</div>' + caseHtml;
+  }
+
   /* 音乐：原创音乐板块 + 与全站背景音乐同源的播放控制 */
   var m = META.music;
   $('#musicCard').innerHTML =

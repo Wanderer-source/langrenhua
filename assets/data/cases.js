@@ -450,6 +450,58 @@ window.PORTFOLIO_DATA = {
       "desc": "西式奇幻 3D 短片。前半段浮空河谷与精灵树屋的治愈童话，后半段腐化灾厄涌出、守护者举杖反抗。"
     }
   ],
+  "comfy": {
+    "title": "ComfyUI 本地工作流",
+    "en": "COMFYUI WORKFLOWS",
+    "lede": "在线平台限流、改版或额度用尽时，本地通道能兜住交付。以下是我在 8GB 显存笔记本上跑通的几套自建工作流。",
+    "items": [
+      {
+        "num": "01",
+        "name": "图像放大矩阵",
+        "en": "UPSCALE MATRIX",
+        "src": "assets/img/wf/wf-upscale.jpg",
+        "desc": "四套放大方案并行，按素材类型切换：HYPIR 侧重细节修复与重绘，SUPIR 走壁纸级人像，TTP 直出 4K，SeedVR2 适合全身 / 半身 / 环境照。",
+        "tags": ["HYPIR", "SUPIR", "TTP-4K", "SeedVR2"]
+      },
+      {
+        "num": "02",
+        "name": "千问图像编辑",
+        "en": "QWEN IMAGE EDIT",
+        "src": "assets/img/wf/wf-qwen-edit.jpg",
+        "desc": "Qwen-2.5-VL 搭配 QwenImageEditPlus 的编辑链路，配合多角度相机控制 LoRA 调整视角，8 步 euler 采样出图。",
+        "tags": ["Qwen-2.5-VL", "ImageEditPlus", "相机控制 LoRA"]
+      },
+      {
+        "num": "03",
+        "name": "产品精修",
+        "en": "PRODUCT RETOUCH",
+        "src": "assets/img/wf/wf-product-retouch.jpg",
+        "desc": "先用 Janus-Pro 做图像理解，读懂产品图的内容与问题；再交给 Flux 链路重绘精修，保留原有结构与材质。",
+        "tags": ["Janus-Pro", "Flux", "图像理解"]
+      },
+      {
+        "num": "04",
+        "name": "物品融合",
+        "en": "PRODUCT FUSION",
+        "src": "assets/img/wf/wf-fusion-1.jpg",
+        "desc": "Flux 搭配 CLIP Vision 的融合链路，把服装 / 配饰融到模特或场景上，沿用原有光影，不重拍也能出新款展示图。",
+        "tags": ["Flux", "CLIP Vision", "K 采样器"],
+        "shots": [
+          "assets/img/wf/wf-fusion-1.jpg",
+          "assets/img/wf/wf-fusion-2.jpg",
+          "assets/img/wf/wf-fusion-3.jpg",
+          "assets/img/wf/wf-fusion-4.jpg"
+        ]
+      }
+    ],
+    "case": {
+      "title": "物品融合 · 前后对比",
+      "en": "BEFORE / AFTER",
+      "before": { "src": "assets/img/wf/wf-fusion-before.jpg", "label": "原始模特图" },
+      "after": { "src": "assets/img/wf/wf-fusion-after.jpg", "label": "融合换装结果" },
+      "desc": "同一位模特、同一姿势，只替换服装：人物姿态、光影与背景全部沿用，实现零重拍的款式迁移。"
+    }
+  },
   "method": {
     "workflow": {
       "src": "assets/img/workflow.jpg",
