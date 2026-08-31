@@ -13,13 +13,11 @@
   function pad(n) { return (n < 10 ? '0' : '') + n; }
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
-  /* GitHub Pages 在国内访问慢，把大媒体（视频/音频/图）走 jsDelivr CDN 加速 */
-  var CDN_BASE = 'https://cdn.jsdelivr.net/gh/Wanderer-source/langrenhua@main/';
-  function cdn(u) {
-    if (!u) return u;
-    if (/^https?:\/\//i.test(u)) return u;
-    return CDN_BASE + String(u).replace(/^\.\//, '').replace(/^\//, '');
-  }
+  /* 媒体一律走同源相对路径，不再转 jsDelivr CDN。
+     原因：jsDelivr 在国内访问不稳定（实测响应 3.5s 且偶发失败），
+     曾导致 hero 背景视频播不出来（只剩静态图）、BGM 音源加载失败。
+     改走 GitHub Pages 同源后实测 0.83s 且稳定。 */
+  function cdn(u) { return u; }
 
   function onImgErr(e) {
     var im = e.target;

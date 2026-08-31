@@ -440,8 +440,11 @@ body > *:not(.bg-grid):not(.bg-noise):not(.bg-glow):not(.bg-orbs):not(.bg-partic
     opacity: 1 !important; transform: none !important; transition: none !important;
   }
   .section .sec-head::after { transform: scaleX(1) !important; }
-  .cursor-glow, .cursor-ring, .bg-aurora::before { display: none; }
-  .bg-aurora i { animation: none !important; }
+  /* 交互类动效（鼠标光晕/光标环）必须关闭；
+     极光属柔和缓慢的背景装饰，改为大幅减慢而非冻结，避免背景完全"死掉" */
+  .cursor-glow, .cursor-ring { display: none; }
+  .bg-aurora::before { animation-duration: 120s; }
+  .bg-aurora i { animation-duration: 60s !important; }
   .case-load-hint .clh-dot { animation: none; }
   html { scroll-behavior: auto; }
 }
