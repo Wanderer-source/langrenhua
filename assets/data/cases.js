@@ -81,7 +81,14 @@ window.PORTFOLIO_DATA = {
       "title": "默认",
       "desc": "我的一首个人原创电子曲，冷夜氛围——也作为本作品集的站点背景音乐。",
       "file": "assets/audio/bgm.mp3",
-      "volume": 0.5
+      "volume": 0.5,
+      "mv": {
+        "platform": "local",
+        "type": "file",
+        "embed": "assets/video/mv-default.mp4",
+        "poster": "assets/img/mv-default-cover.jpg",
+        "caption": "《默认》官方 MV"
+      }
     }
   },
   "cases": [

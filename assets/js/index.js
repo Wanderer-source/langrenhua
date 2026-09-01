@@ -150,6 +150,17 @@
 
   /* 音乐：原创音乐板块 + 与全站背景音乐同源的播放控制 */
   var m = META.music;
+  var mvHtml = '';
+  if (m.mv && m.mv.embed) {
+    var mvInner = (m.mv.type === 'file')
+      ? '<video class="mv-video" controls preload="metadata" playsinline poster="' + (m.mv.poster || '') + '" src="' + m.mv.embed + '"></video>'
+      : '<iframe src="' + m.mv.embed + '" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>';
+    mvHtml =
+      '<div class="mv-embed reveal">' +
+        '<div class="mv-head"><span class="mv-tag">官方 MV</span><h4>' + (m.mv.caption || ('《' + m.title + '》MV')) + '</h4></div>' +
+        '<div class="mv-frame" style="background-image:url(' + (m.mv.poster || '') + ')">' + mvInner + '</div>' +
+      '</div>';
+  }
   $('#musicCard').innerHTML =
     '<div class="music-inner">' +
     '<div class="music-info"><span class="music-tag">个人音乐 · 网易云音乐</span>' +
@@ -162,7 +173,7 @@
     '<p class="music-note">开启后在全站持续播放，切换页面不中断，可用右下角开关随时关闭。</p>' +
     '</div>' +
     '<div class="music-player"><iframe frameborder="0" src="' + m.embed + '" width="100%" height="86" loading="lazy"></iframe></div>' +
-    '</div>';
+    '</div>' + mvHtml;
 
   /* 短片 */
   $('#shortGrid').innerHTML = D.shorts.map(function (v) { return window.CaseApp.videoItemHTML(v, true); }).join('');
