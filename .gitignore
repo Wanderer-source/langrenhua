@@ -3,3 +3,5 @@ node_modules/
 *.log
 .DS_Store
 Thumbs.db
+# 应急转码的本地自托管 MV（已改用 B站内嵌，不入库避免拖慢 Pages 部署）
+assets/video/mv-default.mp4

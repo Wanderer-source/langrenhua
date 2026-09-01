@@ -154,7 +154,7 @@
   if (m.mv && m.mv.embed) {
     var mvInner = (m.mv.type === 'file')
       ? '<video class="mv-video" controls preload="metadata" playsinline poster="' + (m.mv.poster || '') + '" src="' + m.mv.embed + '"></video>'
-      : '<iframe src="' + m.mv.embed + '" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" loading="lazy"></iframe>';
+      : '<iframe src="' + m.mv.embed + '" scrolling="no" border="0" frameborder="no" framespacing="0" allow="fullscreen; autoplay; picture-in-picture; encrypted-media" loading="lazy"></iframe>';
     mvHtml =
       '<div class="mv-embed reveal">' +
         '<div class="mv-head"><span class="mv-tag">官方 MV</span><h4>' + (m.mv.caption || ('《' + m.title + '》MV')) + '</h4></div>' +

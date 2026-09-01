@@ -83,9 +83,9 @@ window.PORTFOLIO_DATA = {
       "file": "assets/audio/bgm.mp3",
       "volume": 0.5,
       "mv": {
-        "platform": "local",
-        "type": "file",
-        "embed": "assets/video/mv-default.mp4",
+        "platform": "bilibili",
+        "type": "bilibili",
+        "embed": "https://player.bilibili.com/player.html?bvid=BV1UJtg67Ebf&page=1&high_quality=1&danmaku=0",
         "poster": "assets/img/mv-default-cover.jpg",
         "caption": "《默认》官方 MV"
       }
