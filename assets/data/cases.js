@@ -174,6 +174,20 @@ window.PORTFOLIO_DATA = {
           "name": "雷神 WiFi6 · 信息流",
           "ratio": "9:16",
           "spec": "720×1280 · 15s"
+        },
+        {
+          "file": "ads-consult-1-portrait",
+          "name": "亚马逊广告 · 竖版 A",
+          "ratio": "3:4",
+          "spec": "832×1104 · 30s",
+          "desc": "同一支亚马逊广告的竖版投放版本，适配信息流与商品页。"
+        },
+        {
+          "file": "ads-consult-3",
+          "name": "亚马逊广告 · 横版 B",
+          "ratio": "4:3",
+          "spec": "1104×832 · 15s",
+          "desc": "15 秒横版变体，适配宽屏与详情页头部。"
         }
       ]
     },
@@ -264,6 +278,20 @@ window.PORTFOLIO_DATA = {
           "name": "Monster · 信息流",
           "ratio": "9:16",
           "spec": "720×1280 · 15s"
+        },
+        {
+          "file": "ads-consult-1-landscape",
+          "name": "亚马逊广告 · 横版",
+          "ratio": "16:9",
+          "spec": "1280×720 · 30s",
+          "desc": "横版投放版本，适配首页主图视频与桌面信息流。"
+        },
+        {
+          "file": "ads-consult-2",
+          "name": "亚马逊广告 · 竖版 C",
+          "ratio": "3:4",
+          "spec": "832×1104 · 15s",
+          "desc": "15 秒精简竖版，快速传达卖点。"
         }
       ]
     },
@@ -355,6 +383,13 @@ window.PORTFOLIO_DATA = {
           "name": "良品铺子 · 亚马逊信息流",
           "ratio": "9:16",
           "spec": "720×1280 · 15s"
+        },
+        {
+          "file": "ads-consult-1-portrait2",
+          "name": "亚马逊广告 · 竖版 B",
+          "ratio": "9:16",
+          "spec": "720×1280 · 30s",
+          "desc": "9:16 全竖版，移动端信息流首选画幅。"
         }
       ]
     },
@@ -469,15 +504,6 @@ window.PORTFOLIO_DATA = {
           "desc": "《山海奇闻·羽民篇》系列 AI 短片。羽民国一日游，东方志怪美术与 AI 生成的奇幻叙事。"
     }
   ],
-  "ads": [
-    { "file": "ads-consult-1-portrait", "name": "亚马逊广告 · 竖版 A", "ratio": "3:4", "spec": "832×1104 · 30s", "desc": "同一支亚马逊广告的竖版投放版本，适配信息流与商品页。" },
-    { "file": "ads-consult-1-landscape", "name": "亚马逊广告 · 横版", "ratio": "16:9", "spec": "1280×720 · 30s", "desc": "横版投放版本，适配首页主图视频与桌面信息流。" },
-    { "file": "ads-consult-1-portrait2", "name": "亚马逊广告 · 竖版 B", "ratio": "9:16", "spec": "720×1280 · 30s", "desc": "9:16 全竖版，移动端信息流首选画幅。" },
-    { "file": "ads-consult-2", "name": "亚马逊广告 · 竖版 C", "ratio": "3:4", "spec": "832×1104 · 15s", "desc": "15 秒精简竖版，快速传达卖点。" },
-    { "file": "ads-consult-3", "name": "亚马逊广告 · 横版 B", "ratio": "4:3", "spec": "1104×832 · 15s", "desc": "15 秒横版变体，适配宽屏与详情页头部。" },
-    { "file": "ads-liangpin-feed", "name": "良品铺子 · 亚马逊信息流", "ratio": "9:16", "spec": "720×1280 · 15s", "desc": "良品铺子混合纯坚果的亚马逊信息流广告，竖版投放。" }
-  ],
-
   "comfy": {
     "title": "ComfyUI 本地工作流",
     "en": "COMFYUI WORKFLOWS",

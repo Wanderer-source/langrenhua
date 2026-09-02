@@ -80,7 +80,6 @@
   });
 
   $('#shortGrid').innerHTML = D.shorts.map(function (v) { return window.CaseApp.videoItemHTML(v, true); }).join('');
-  $('#adsGrid').innerHTML = (D.ads || []).map(function (v) { return window.CaseApp.videoItemHTML(v, false); }).join('');
 
   /* 关于 */
   $('#aboutGrid').innerHTML = META.capabilities.map(function (cap) {
