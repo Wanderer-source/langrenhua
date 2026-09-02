@@ -906,6 +906,28 @@
     startLoop();
   }
 
+  function initScrollSpy() {
+    var links = $all('.nav-links a[data-nav]');
+    if (!links.length) return;
+    var secs = links.map(function (a) {
+      return document.getElementById(a.getAttribute('data-nav'));
+    }).filter(Boolean);
+    function update() {
+      var best = null;
+      var vh = window.innerHeight || 800;
+      secs.forEach(function (sec) {
+        var r = sec.getBoundingClientRect();
+        if (r.top <= vh * 0.45 && r.bottom > vh * 0.45) best = sec.id;
+      });
+      links.forEach(function (a) {
+        a.classList.toggle('active', a.getAttribute('data-nav') === best);
+      });
+    }
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+  }
+
   function bindAll() {
     bindVideos();
     bindLightbox();
@@ -918,6 +940,7 @@
     initCursorFX();
     initBGM();
     initNavToggle();
+    initScrollSpy();
   }
 
   /* ---------- 鼠标跟随柔光晕 ----------

@@ -2,8 +2,8 @@ window.PORTFOLIO_DATA = {
   "meta": {
     "name": "孙国华",
     "role": "AIGC 视觉设计师",
-    "tagline": "把产品卖点，做成能卖货的画面",
-    "lede": "我做三件事：把一张产品原图铺成完整的电商视觉链路，把静态卖点翻译成 15 秒的动态影像，并为不同模型写出各自吃得下的提示词。作品集里是从原图到成片的全部过程，包括中间的取舍与修正。",
+    "tagline": "做能卖货的视觉，从一张原图开始",
+    "lede": "这些项目大多从一张产品原图开始。我负责把它铺成能上架的视觉链路，把卖点拍成 15 秒的片子，再为不同模型各写一版能用的提示词。作品集里是从原图到成片的完整过程，包括中途改过的和否掉的。",
     "stats": [
       {
         "num": "04",
@@ -29,7 +29,7 @@ window.PORTFOLIO_DATA = {
     "capabilities": [
       {
         "title": "电商视觉",
-        "text": "从产品实拍原图出发，产出亚马逊 Listing 套图与 A+ 详情页的完整链路——主图、卖点图、场景图、对比图、规格图、包装图，再到 3 万像素级别的详情页长图。按「看到 → 理解 → 信任 → 下单」的顺序排布卖点。",
+        "text": "从产品实拍原图出发，做亚马逊 Listing 套图与 A+ 详情页：主图、卖点图、场景图、对比图、规格图、包装图，再到几万像素长的详情页长图。卖点按消费者看图顺序排，先让人看见，再让人看懂，最后让人想买。",
         "tags": [
           "Listing 套图",
           "A+ 详情页",
@@ -528,6 +528,15 @@ window.PORTFOLIO_DATA = {
       "before": { "src": "assets/img/wf/wf-fusion-before.jpg", "label": "原始模特图" },
       "after": { "src": "assets/img/wf/wf-fusion-after.jpg", "label": "融合换装结果" },
       "desc": "同一位模特、同一姿势，只替换服装：人物姿态、光影与背景全部沿用，实现零重拍的款式迁移。"
+    },
+    "showcase": {
+      "title": "MiniMax H3 生成效果示例",
+      "en": "MINIMAX H3 OUTPUT",
+      "file": "minimax-xiaohongmao",
+      "name": "小红帽 · 第三幕",
+      "ratio": "16:9",
+      "spec": "本地 ComfyUI · MiniMax H3 · 38s",
+      "desc": "在 8GB 显存笔记本上用 MiniMax H3 直接生成的片段，作为本地视频工作流的实际产出参考。"
     }
   },
   "method": {
