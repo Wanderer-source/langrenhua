@@ -193,7 +193,7 @@
     '<span class="qr-tip">扫码加微信</span></div>' +
     '</div>';
 
-  /* 音乐：移到联系区，作为个人标签弱化展示 */
+  /* 音乐：放到作品区「影像作品」区块下方（紧挨短片） */
   var m = META.music;
   var mvHtml = '';
   if (m.mv && m.mv.embed) {
@@ -206,7 +206,7 @@
         '<div class="mv-frame" style="background-image:url(' + (m.mv.poster || '') + ')">' + mvInner + '</div>' +
       '</div>';
   }
-  $('#musicCard').innerHTML =
+  $('#musicUnderShort').innerHTML =
     '<div class="music-inner">' +
     '<div class="music-info"><span class="music-tag">个人音乐 · 网易云音乐</span>' +
     '<h3>《' + m.title + '》</h3>' +
