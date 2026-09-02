@@ -678,13 +678,10 @@ body > *:not(.bg-grid):not(.bg-noise):not(.bg-glow):not(.bg-orbs):not(.bg-partic
 .case-toc a.active .ct-zh { color: #fff; }
 
 /* ---------- 底部融合：工作流与方法 ---------- */
-.local-wf-sec { padding-top: 0; }
-.local-wf-sec .wrap { padding-top: 92px; border-top: 1px solid var(--line-soft); }
-.local-wf-sec .sec-title { font-family: var(--serif); }
-.local-wf-sec .block + .block { margin-top: 48px; }
-.local-wf-sec .cf-lede { max-width: 820px; }
-.local-wf-sec .cf-grid { margin-top: 8px; }
-.local-wf-sec .wf-fig { margin: 8px 0 0; }
+.wf-method-sec .cf-lede { max-width: 820px; }
+.wf-method-sec .cf-grid { margin-top: 8px; }
+.wf-method-sec .wf-fig { margin: 8px 0 0; }
+.wf-method-sec .block + .block { margin-top: 48px; }
 
 /* ---------- 响应式补充 ---------- */
 @media (max-width: 760px) {

@@ -19,7 +19,8 @@
     { id: 'works', label: '作品' },
     { id: 'wf', label: '工作流' },
     { id: 'film', label: '影像' },
-    { id: 'method', label: '方法' }
+    { id: 'wfMethod', label: '方法' },
+    { id: 'prompt', label: '提示词' }
   ];
   $('#navLinks').innerHTML = navLinks.map(function (l) {
     return '<a href="#' + l.id + '" data-nav="' + l.id + '">' + l.label + '</a>';
@@ -134,7 +135,7 @@
       '<figure><div class="cf-shot"><img loading="lazy" decoding="async" src="' + cs.after.src + '" alt="' + cs.after.label + '" onerror="this.style.opacity=0"></div><figcaption>' + cs.after.label + '</figcaption></figure>' +
       '</div><p class="cf-case-desc">' + cs.desc + '</p></div>'
     ) : '';
-    $('#wfComfy').innerHTML =
+    $('#comfyBox').innerHTML =
       '<div class="cf-head"><h3>' + cf.title + '</h3><span class="cf-en">' + cf.en + '</span></div>' +
       '<p class="cf-lede">' + cf.lede + '</p>' +
       '<div class="cf-grid">' + cf.items.map(function (it) {
@@ -180,7 +181,7 @@
   /* 广告视频 */
   $('#adsGrid').innerHTML = (D.ads || []).map(function (v) { return window.CaseApp.videoItemHTML(v, false); }).join('');
 
-  /* 方法 */
+  /* 方法：本地工作流大图 + 四版提示词 + 工具栈 → 融合「工作流与方法」区；提示词对照 → 独立区块 */
   var md = D.method;
   var versions = '<div class="ver-table">' + md.versions.map(function (v) {
     return '<div class="ver-row"><span class="ver-v">' + v.version + '</span>' +
@@ -192,16 +193,16 @@
     return '<div class="tool-group"><span class="tool-k">' + g.title + '</span>' +
       '<div class="tag-row">' + g.items.map(function (t) { return '<span class="tag">' + t + '</span>'; }).join('') + '</div></div>';
   }).join('');
-  $('#methodContent').innerHTML =
+  $('#methodBox').innerHTML =
     '<div class="block reveal"><div class="block-head"><h3>本地工作流</h3></div>' +
     '<figure class="wf-fig" data-lb data-group="wf" data-i="0">' +
     '<img loading="lazy" decoding="async" src="' + md.workflow.src + '" alt="工作流" onerror="this.style.opacity=0;this.closest(\'figure\').classList.add(\'img-fail\')">' +
     '<figcaption>' + md.workflow.caption + '</figcaption></figure></div>' +
     '<div class="block reveal"><div class="block-head"><h3>同一支 TVC · 四版提示词</h3><span class="block-count">跨模型适配</span></div>' + versions + '</div>' +
-    '<div class="block reveal"><div class="block-head"><h3>提示词对照</h3><span class="block-count">A 版 / D 版</span></div>' +
-    '<div class="prompt-grid"><pre class="prompt">' + esc(md.promptA) + '</pre>' +
-    '<pre class="prompt">' + esc(md.promptD) + '</pre></div></div>' +
     '<div class="block reveal"><div class="block-head"><h3>工具栈</h3></div>' + tools + '</div>';
+  $('#promptBox').innerHTML =
+    '<div class="prompt-grid"><pre class="prompt">' + esc(md.promptA) + '</pre>' +
+    '<pre class="prompt">' + esc(md.promptD) + '</pre></div>';
 
   /* 联系 */
   var ct = META.contact;
@@ -215,47 +216,7 @@
     '<span class="qr-tip">扫码加微信</span></div>' +
     '</div>';
 
-  /* 底部：ComfyUI 本地工作流 + 本地工作流大图 融合展示 */
-  (function () {
-    var cf = D.comfy;
-    var mdWf = D.method && D.method.workflow;
-    if (!cf && !mdWf) return;
-    var parts = [];
-    if (cf) {
-      var cs = cf.case;
-      var caseHtml = cs ? (
-        '<div class="cf-case reveal"><div class="cf-case-head"><h4>' + cs.title + '</h4><span class="cf-en">' + cs.en + '</span></div>' +
-        '<div class="cf-ba">' +
-        '<figure><div class="cf-shot"><img loading="lazy" decoding="async" src="' + cs.before.src + '" alt="' + cs.before.label + '" onerror="this.style.opacity=0"></div><figcaption>' + cs.before.label + '</figcaption></figure>' +
-        '<span class="cf-arrow">&rarr;</span>' +
-        '<figure><div class="cf-shot"><img loading="lazy" decoding="async" src="' + cs.after.src + '" alt="' + cs.after.label + '" onerror="this.style.opacity=0"></div><figcaption>' + cs.after.label + '</figcaption></figure>' +
-        '</div><p class="cf-case-desc">' + cs.desc + '</p></div>'
-      ) : '';
-      parts.push(
-        '<div class="block reveal"><div class="block-head"><h3>' + cf.title + '</h3><span class="block-count">' + cf.en + '</span></div>' +
-        '<p class="cf-lede">' + cf.lede + '</p>' +
-        '<div class="cf-grid">' + cf.items.map(function (it) {
-          return '<figure class="cf-card reveal">' +
-            '<div class="cf-shot"><img loading="lazy" decoding="async" src="' + it.src + '" alt="' + it.name + '" onerror="this.style.opacity=0"></div>' +
-            '<figcaption><div class="cf-name"><span class="cf-i-num">' + it.num + '</span>' + it.name + '<em>' + it.en + '</em></div>' +
-            '<p class="cf-desc">' + it.desc + '</p>' +
-            '<div class="cf-tags">' + it.tags.map(function (t) { return '<span>' + t + '</span>'; }).join('') + '</div>' +
-            (it.shots ? '<div class="cf-shots">' + it.shots.map(function (s) { return '<img loading="lazy" decoding="async" src="' + s + '" alt="' + it.name + ' 工作流截图" onerror="this.style.opacity=0">'; }).join('') + '</div>' : '') +
-            '</figcaption></figure>';
-        }).join('') + '</div>' + caseHtml + '</div>'
-      );
-    }
-    if (mdWf) {
-      parts.push(
-        '<div class="block reveal"><div class="block-head"><h3>本地工作流</h3></div>' +
-        '<figure class="wf-fig" data-lb data-group="wf-bottom" data-i="0">' +
-        '<img loading="lazy" decoding="async" src="' + mdWf.src + '" alt="本地工作流" onerror="this.style.opacity=0;this.closest(\'figure\').classList.add(\'img-fail\')">' +
-        '<figcaption>' + mdWf.caption + '</figcaption></figure></div>'
-      );
-    }
-    var el = $('#localWorkflowContent');
-    if (el) el.innerHTML = parts.join('');
-  })();
+  /* 融合展示（ComfyUI 本地工作流 + 本地工作流大图）已并入上方「工作流与方法」主区块 */
 
   window.CaseApp.bindAll();
 

@@ -93,7 +93,6 @@
       <p class="sec-lede">AIGC WORKFLOW — 每一条商业项目，都按「需求 → 脚本 → 生成 → 精修 → 交付」的标准化链路推进，工具可以换，流程不会乱。</p>
     </div>
     <div class="wf-steps" id="wfSteps"></div>
-    <div class="wf-comfy" id="wfComfy"></div>
   </div>
 </section>
 
@@ -117,35 +116,36 @@
   </div>
 </section>
 
-<!-- 方法 / 本地工具链 -->
-<section class="section method-sec" id="method">
+<!-- 工作流与方法（融合：ComfyUI 本地工作流 + 本地工作流大图 + 四版提示词 + 工具栈） -->
+<section class="section wf-method-sec" id="wfMethod">
   <div class="wrap">
     <div class="sec-head">
       <span class="sec-num">05</span>
       <h2 class="sec-title">工作流与方法</h2>
       <p class="sec-lede">AIGC 设计师的壁垒不在会用哪个工具，而在工具失效时还能不能出活，以及能不能把同一个创意翻译成不同模型听得懂的语言。</p>
     </div>
-    <div id="methodContent"></div>
+    <div id="comfyBox"></div>
+    <div id="methodBox"></div>
+  </div>
+</section>
+
+<!-- 提示词对照（独立区块，位于「工作流与方法」下方） -->
+<section class="section prompt-sec" id="prompt">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">06</span>
+      <h2 class="sec-title">提示词对照</h2>
+      <p class="sec-lede">同一支 TVC，不同模型的提示词写法对照。结构决定产出，直接套模板出来的东西是平的。</p>
+    </div>
+    <div id="promptBox"></div>
   </div>
 </section>
 
 <!-- 联系 -->
 <section class="section contact-sec" id="contact">
   <div class="wrap">
-    <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">联系</h2></div>
+    <div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">联系</h2></div>
     <div class="contact-grid" id="contactGrid"></div>
-  </div>
-</section>
-
-<!-- 工作流与方法（底部融合展示：ComfyUI 本地工作流 + 本地工作流大图） -->
-<section class="section local-wf-sec" id="localWorkflow">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="sec-num">07</span>
-      <h2 class="sec-title">工作流与方法</h2>
-      <p class="sec-lede">AIGC 设计师的壁垒不在会用哪个工具，而在工具失效时还能不能出活，以及能不能把同一个创意翻译成不同模型听得懂的语言。</p>
-    </div>
-    <div id="localWorkflowContent"></div>
   </div>
 </section>
 
