@@ -89,11 +89,12 @@
   /* ---------- 视频块 ---------- */
   function videoItemHTML(v, isShort) {
     var cover = v.cover || ('assets/poster/' + enc(v.file) + '.jpg');
+    var coverCdn = cdn(cover);
     var src = 'assets/video/' + enc(v.file) + '.mp4';
     var cls = isShort ? 'v-item v-short' : 'v-item';
     return '<div class="' + cls + '" data-video="' + src + '" data-name="' + (v.name || v.file) + '">' +
       '<div class="poster-wrap">' +
-      '<img class="poster" loading="lazy" decoding="async" src="' + cover + '" alt="' + (v.name || '') + ' 封面" onerror="this.closest(\'.poster-wrap\').classList.add(\'img-fail\')">' +
+      '<img class="poster" loading="lazy" decoding="async" src="' + coverCdn + '" alt="' + (v.name || '') + ' 封面" onerror="this.onerror=null;this.src=\'' + cover + '\';this.closest(\'.poster-wrap\').classList.add(\'img-fail\')">' +
       '<span class="v-ratio">' + (v.ratio || '16:9') + '</span>' +
       '<button class="play-btn" type="button" aria-label="播放 ' + (v.name || '') + '">▶</button>' +
       '</div>' +
@@ -235,7 +236,12 @@
         var pw = item.querySelector('.poster-wrap');
         var vid = document.createElement('video');
         vid.controls = true; vid.autoplay = true; vid.playsInline = true;
-        vid.src = cdn(src);
+        /* jsDelivr 对 >20MB 文件返回 403，故双 <source>：CDN 优先，失败自动降级到 GitHub Pages 同源 */
+        var sCdn = document.createElement('source');
+        sCdn.src = cdn(src); sCdn.type = 'video/mp4';
+        var sLocal = document.createElement('source');
+        sLocal.src = src; sLocal.type = 'video/mp4';
+        vid.appendChild(sCdn); vid.appendChild(sLocal);
         vid.addEventListener('error', function () {
           pw.innerHTML = '<span class="v-err">视频加载失败，请检查网络或本地文件</span>';
         });
