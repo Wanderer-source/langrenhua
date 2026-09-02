@@ -311,6 +311,8 @@ body > *:not(.bg-grid):not(.bg-noise):not(.bg-glow):not(.bg-orbs):not(.bg-partic
 .poster-wrap { position: relative; aspect-ratio: 16 / 9; background: #000; cursor: pointer; overflow: hidden; }
 .v-short .poster-wrap { aspect-ratio: 16 / 9; }
 .poster { width: 100%; height: 100%; object-fit: cover; transition: transform .5s, opacity .4s; }
+.ads-grid .poster-wrap { aspect-ratio: auto; background: #0c0e12; }
+.ads-grid .poster { height: auto; object-fit: contain; }
 .v-item:hover .poster { transform: scale(1.02); }
 .v-ratio { position: absolute; top: 10px; left: 10px; font-size: 11px; background: rgba(0,0,0,.6); color: #fff; padding: 3px 9px; border-radius: 12px; }
 .play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 62px; height: 62px; border-radius: 50%; border: none; background: color-mix(in srgb, var(--accent) 90%, #000); color: #fff; font-size: 22px; cursor: pointer; display: grid; place-items: center; box-shadow: 0 8px 30px rgba(0,0,0,.5); transition: transform .25s, background .25s; }

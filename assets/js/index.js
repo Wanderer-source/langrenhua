@@ -177,6 +177,8 @@
 
   /* 短片 */
   $('#shortGrid').innerHTML = D.shorts.map(function (v) { return window.CaseApp.videoItemHTML(v, true); }).join('');
+  /* 广告视频 */
+  $('#adsGrid').innerHTML = (D.ads || []).map(function (v) { return window.CaseApp.videoItemHTML(v, false); }).join('');
 
   /* 方法 */
   var md = D.method;
