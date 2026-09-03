@@ -587,6 +587,11 @@ body > *:not(.bg-grid):not(.bg-noise):not(.bg-glow):not(.bg-orbs):not(.bg-partic
 .fab-back { position: fixed; left: 26px; bottom: 26px; z-index: 70; display: inline-flex; align-items: center; gap: 8px; padding: 14px 24px; border-radius: 28px; font-size: 16px; font-weight: 600; color: var(--fg); background: color-mix(in srgb, var(--bg) 72%, transparent); border: 1px solid var(--line); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: all .2s; box-shadow: 0 8px 24px rgba(0,0,0,.4); }
 .fab-back:hover { color: var(--accent); border-color: var(--accent); }
 
+/* ---------- 子页底部返回（滑到最底部也有返回入口） ---------- */
+.case-foot { margin-top: 72px; padding-top: 40px; border-top: 1px solid var(--line-soft); text-align: center; }
+.case-back-btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 36px; border-radius: 30px; font-size: 15px; font-weight: 600; color: var(--fg); background: color-mix(in srgb, var(--accent) 14%, transparent); border: 1px solid var(--line); transition: all .2s; }
+.case-back-btn:hover { color: #fff; background: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
+
 /* ---------- Hero 英文眉标 + 状态徽章 ---------- */
 .hero-en { font-size: 13px; letter-spacing: .24em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; font-weight: 600; }
 .hero-badges { display: flex; flex-wrap: wrap; gap: 14px 28px; margin-top: 30px; }

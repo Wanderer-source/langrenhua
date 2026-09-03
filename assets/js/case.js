@@ -31,7 +31,8 @@
     }).join('') +
     '</nav>';
 
-  mount.innerHTML = '<a class="back-link" href="index.html">← 返回作品集</a>' + toc + res.html;
+  mount.innerHTML = '<a class="back-link" href="index.html">← 返回作品集</a>' + toc + res.html +
+    '<div class="case-foot"><a class="case-back-btn" href="index.html">← 返回作品集</a></div>';
   document.title = c.title + ' · 孙国华作品集';
   window.CaseApp.bindAll();
   initCaseTOC();
