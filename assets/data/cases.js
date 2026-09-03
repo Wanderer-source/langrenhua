@@ -558,11 +558,23 @@ window.PORTFOLIO_DATA = {
     "showcase": {
       "title": "MiniMax H3 生成效果示例",
       "en": "MINIMAX H3 OUTPUT",
-      "file": "minimax-xiaohongmao",
-      "name": "小红帽 · 第三幕",
-      "ratio": "16:9",
-      "spec": "本地 ComfyUI · MiniMax H3 · 38s",
-      "desc": "在 8GB 显存笔记本上用 MiniMax H3 直接生成的片段，作为本地视频工作流的实际产出参考。"
+      "desc": "在 8GB 显存笔记本上用 MiniMax H3 直接生成的片段，作为本地视频工作流的实际产出参考。",
+      "videos": [
+        {
+          "file": "minimax-hongmao-1",
+          "name": "小红帽 · 演示片段一",
+          "ratio": "16:9",
+          "spec": "本地 ComfyUI · MiniMax H3 · 7s",
+          "desc": "MiniMax H3 参考生视频（Ref2VA）片段，小红帽主题的角色动态演示。"
+        },
+        {
+          "file": "minimax-hongmao-2",
+          "name": "小红帽 · 演示片段二",
+          "ratio": "16:9",
+          "spec": "本地 ComfyUI · MiniMax H3 · 8s",
+          "desc": "MiniMax H3 直接生成的叙事片段，验证本地视频工作流的成片可用性。"
+        }
+      ]
     }
   },
   "method": {

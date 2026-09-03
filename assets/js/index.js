@@ -141,8 +141,12 @@
     var showcaseHtml = '';
     if (cf.showcase) {
       var sc = cf.showcase;
+      var scVideos = sc.videos || [sc];
+      var scGrid = '<div class="video-grid">' + scVideos.map(function (v) {
+        return window.CaseApp.videoItemHTML(v, false);
+      }).join('') + '</div>';
       showcaseHtml = '<div class="block reveal" style="margin-top: 48px;"><div class="block-head"><h3>' + sc.title + '</h3><span class="block-count">' + sc.en + '</span></div>' +
-        '<div class="video-grid">' + window.CaseApp.videoItemHTML(sc, false) + '</div>' +
+        scGrid +
         '<p class="block-label">' + sc.desc + '</p></div>';
     }
 
