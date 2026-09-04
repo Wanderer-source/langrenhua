@@ -81,7 +81,7 @@
       var src = 'assets/img/' + d.dir + '/' + d.prefix + '-' + pad(i) + '.jpg';
       cells += '<figure class="g-fig deck-fig" data-lb data-group="' + (d.dir || 'deck') +
         '" data-i="' + (i - 1) + '" data-full="' + src + '">' +
-        '<img loading="lazy" decoding="async" src="' + src + '" alt="' + (d.label || '提案') + ' 第 ' + i + ' 页"' +
+        '<img loading="eager" decoding="async" src="' + src + '" alt="' + (d.label || '提案') + ' 第 ' + i + ' 页"' +
         ' onerror="this.closest(\'figure\').classList.add(\'img-fail\')">' +
         '<figcaption class="deck-cap">' + pad(i) + '</figcaption>' +
         '</figure>';
