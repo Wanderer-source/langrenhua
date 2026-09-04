@@ -78,11 +78,12 @@
     var n = d.n || 0;
     var cells = '';
     for (var i = 1; i <= n; i++) {
-      var src = 'assets/img/' + d.dir + '/' + d.prefix + '-' + pad(i) + '.jpg';
+      var local = 'assets/img/' + d.dir + '/' + d.prefix + '-' + pad(i) + '.jpg';
+      var src = cdn(local);
       cells += '<figure class="g-fig deck-fig" data-lb data-group="' + (d.dir || 'deck') +
-        '" data-i="' + (i - 1) + '" data-full="' + src + '">' +
-        '<img loading="eager" decoding="async" src="' + src + '" alt="' + (d.label || '提案') + ' 第 ' + i + ' 页"' +
-        ' onerror="this.closest(\'figure\').classList.add(\'img-fail\')">' +
+        '" data-i="' + (i - 1) + '" data-full="' + local + '">' +
+        '<img loading="eager" decoding="async" src="' + src + '" data-local="' + local + '" alt="' + (d.label || '提案') + ' 第 ' + i + ' 页"' +
+        ' onerror="var self=this, loc=self.dataset.local; if(loc){ self.onerror=null; self.src=loc; self.removeAttribute(\'data-local\'); } else { self.closest(\'figure\').classList.add(\'img-fail\'); }">' +
         '<figcaption class="deck-cap">' + pad(i) + '</figcaption>' +
         '</figure>';
     }
