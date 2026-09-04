@@ -289,6 +289,20 @@ body > *:not(.bg-grid):not(.bg-noise):not(.bg-glow):not(.bg-orbs):not(.bg-partic
 .g-fig.img-fail { background: repeating-linear-gradient(45deg, #16181d, #16181d 10px, #1a1d23 10px, #1a1d23 20px); }
 .g-fig.img-fail::after { content: "图未加载"; position: absolute; inset: 0; display: grid; place-items: center; color: var(--fg-faint); font-size: 12px; }
 
+/* ---------- 折叠提案区（默认收起，放在子页末尾，不抢主视觉） ---------- */
+.deck-fold { border: 1px solid var(--line-soft); border-radius: 14px; background: color-mix(in srgb, var(--bg-card) 55%, transparent); overflow: hidden; }
+.deck-sum { display: flex; align-items: center; gap: 12px; padding: 14px 18px; cursor: pointer; list-style: none; font-size: 13.5px; color: var(--fg-dim); transition: color .2s, background .2s; user-select: none; }
+.deck-sum::-webkit-details-marker { display: none; }
+.deck-sum:hover { color: var(--fg); background: color-mix(in srgb, var(--accent) 8%, transparent); }
+.deck-sum::before { content: "▸"; display: inline-block; color: var(--accent); font-size: 11px; transition: transform .25s; }
+.deck-fold[open] .deck-sum::before { transform: rotate(90deg); }
+.deck-sum-t { flex: 1; }
+.deck-sum-n { font-size: 12px; color: var(--fg-faint); border: 1px solid var(--line-soft); border-radius: 12px; padding: 2px 10px; white-space: nowrap; }
+.deck-body { padding: 16px 18px 20px; border-top: 1px solid var(--line-soft); }
+/* PPT 为 16:9，需覆盖 .g-fig 默认的 1:1 方形裁剪（特异性必须打平 :not(.g-ratio)） */
+.g-fig.deck-fig img { aspect-ratio: 16 / 9; object-fit: cover; }
+.deck-cap { position: absolute; left: 10px; bottom: 8px; z-index: 2; font-size: 11px; letter-spacing: .1em; color: var(--fg-faint); background: color-mix(in srgb, var(--bg) 72%, transparent); padding: 2px 8px; border-radius: 8px; pointer-events: none; }
+
 /* ---------- 原图 / banner / 工作流 大图 ---------- */
 .raw-fig, .banner-fig, .wf-fig { border-radius: 14px; overflow: hidden; border: 1px solid var(--line-soft); cursor: zoom-in; background: var(--bg-card); }
 .raw-fig { max-width: 70%; margin: 0 auto; }

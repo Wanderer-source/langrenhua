@@ -73,6 +73,26 @@
     return '<div class="gallery" style="--cols:' + (g.columns || 3) + '">' + cells + '</div>';
   }
 
+  /* ---------- 折叠提案区（默认收起，不抢主视觉） ---------- */
+  function deckHTML(d) {
+    var n = d.n || 0;
+    var cells = '';
+    for (var i = 1; i <= n; i++) {
+      var src = 'assets/img/' + d.dir + '/' + d.prefix + '-' + pad(i) + '.jpg';
+      cells += '<figure class="g-fig deck-fig" data-lb data-group="' + (d.dir || 'deck') +
+        '" data-i="' + (i - 1) + '" data-full="' + src + '">' +
+        '<img loading="lazy" decoding="async" src="' + src + '" alt="' + (d.label || '提案') + ' 第 ' + i + ' 页"' +
+        ' onerror="this.closest(\'figure\').classList.add(\'img-fail\')">' +
+        '<figcaption class="deck-cap">' + pad(i) + '</figcaption>' +
+        '</figure>';
+    }
+    return '<details class="deck-fold">' +
+      '<summary class="deck-sum"><span class="deck-sum-t">' + (d.summary || '展开查看') + '</span>' +
+      '<span class="deck-sum-n">' + n + ' 页</span></summary>' +
+      '<div class="deck-body"><div class="gallery" style="--cols:' + (d.columns || 3) + '">' + cells + '</div></div>' +
+      '</details>';
+  }
+
   /* ---------- 长图卷轴 ---------- */
   function railHTML(r) {
     var segs = [];
@@ -212,13 +232,15 @@
     h += block('s-strat', '01', '策略 / 视觉 / 难点', 'STRATEGY', c.cat, strategyHTML(c.strategy));
     (c.sections || []).forEach(function (sec, i) {
       var num = pad(2 + i);
-      var en = sec.type === 'video' ? 'FILM' : 'GALLERY';
+      var en = sec.type === 'video' ? 'FILM' : (sec.type === 'deck' ? 'DECK' : 'GALLERY');
       if (sec.type === 'gallery') {
         h += block('s-sec' + i, num, sec.label, en, (sec.note || ''), galleryHTML(sec, c.theme));
       } else if (sec.type === 'video') {
         h += block('s-sec' + i, num, (sec.name || '短片'), en, (sec.spec || ''),
           '<div class="video-grid">' + videoItemHTML(sec, false) + '</div>' +
           (sec.desc ? '<p class="block-label">' + sec.desc + '</p>' : ''));
+      } else if (sec.type === 'deck') {
+        h += block('s-sec' + i, num, (sec.label || '提案'), en, (sec.note || ''), deckHTML(sec));
       }
     });
     h += '</section>';

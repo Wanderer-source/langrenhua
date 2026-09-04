@@ -474,6 +474,16 @@ window.PORTFOLIO_DATA = {
           "ratio": "16:9",
           "spec": "1920×1080 · 67s",
           "desc": "IP 世界观短片。深夜房间里，浪人华记录下自己第一次与 ZERO-00 的同步异常。"
+        },
+        {
+          "type": "deck",
+          "label": "IP 商业提案",
+          "note": "19 页 · 世界观 / 角色 / 视觉系统 / 账号生态 / 商业化路径",
+          "dir": "ip-deck",
+          "prefix": "deck",
+          "n": 19,
+          "columns": 3,
+          "summary": "展开查看完整商业提案（世界观设定 · 视觉识别 · 账号生态 · 商业化路径）"
         }
       ]
     }
