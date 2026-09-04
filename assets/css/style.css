@@ -61,7 +61,7 @@ img { display: block; max-width: 100%; }
 .bg-fx {
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
 }
-body > *:not(.bg-grid):not(.bg-noise):not(.bg-glow):not(.bg-orbs):not(.bg-particles):not(.bg-fx):not(.bg-aurora):not(.cursor-glow):not(.cursor-ring):not(.bgm) { position: relative; z-index: 1; }
+body > *:not(.bg-grid):not(.bg-noise):not(.bg-glow):not(.bg-orbs):not(.bg-particles):not(.bg-fx):not(.bg-aurora):not(.cursor-glow):not(.cursor-ring):not(.bgm):not(.nav):not(.case-side-back):not(.lightbox):not(.progress) { position: relative; z-index: 1; }
 
 /* 全站动态极光背景：fixed 层，滚动时始终流动，呼应首屏视觉（方案A下 bg-glow 被隐藏，此层补上"活"感） */
 .bg-aurora { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
