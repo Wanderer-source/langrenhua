@@ -71,7 +71,11 @@ window.PORTFOLIO_DATA = {
     "contact": {
       "email": "2103576329@qq.com",
       "phone": "13124179280",
-      "qr": "assets/img/wechat-qr.jpg"
+      "qr": "assets/img/wechat-qr.jpg",
+      "resume": {
+        "pdf": "assets/file/孙国华_简历.pdf",
+        "docx": "assets/file/孙国华_简历.docx"
+      }
     },
     "music": {
       "platform": "netease",

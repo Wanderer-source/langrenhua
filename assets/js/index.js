@@ -186,6 +186,7 @@
   $('#methodBox').innerHTML = wfStepsHtml + comfyHtml + toolsHtml + versionsHtml + promptHtml;
 
   /* 联系 + 音乐 */
+  var CDN = 'https://cdn.jsdelivr.net/gh/Wanderer-source/langrenhua@main/';
   var ct = META.contact;
   $('#contactGrid').innerHTML =
     '<div class="contact-line reveal"><a href="mailto:' + ct.email + '">' + ct.email + '</a></div>' +
@@ -195,6 +196,10 @@
     '<div class="contact-item qr-box"><span class="ci-k">微信</span>' +
     '<img class="qr-img" src="' + ct.qr + '" alt="微信二维码" onerror="this.closest(\'.qr-box\').classList.add(\'qr-empty\');this.style.display=\'none\'">' +
     '<span class="qr-tip">扫码加微信</span></div>' +
+    '<div class="contact-resume">' +
+    '<a class="btn btn-primary" href="' + CDN + ct.resume.pdf + '" target="_blank" rel="noopener">查看简历（PDF）</a>' +
+    '<a class="btn btn-ghost" href="' + ct.resume.docx + '" download>下载 DOCX 版</a>' +
+    '</div>' +
     '</div>';
 
   /* 音乐：放到作品区「影像作品」区块下方（紧挨短片） */

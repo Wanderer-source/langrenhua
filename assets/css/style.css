@@ -383,6 +383,8 @@ body > *:not(.bg-grid):not(.bg-noise):not(.bg-glow):not(.bg-orbs):not(.bg-partic
 .contact-line a { color: var(--accent); border-bottom: 2px solid transparent; transition: border-color .2s; }
 .contact-line a:hover { border-color: var(--accent); }
 .contact-row { display: flex; gap: 18px; flex-wrap: wrap; }
+.contact-resume { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+.contact-resume .btn { min-width: 168px; text-align: center; }
 .contact-item { background: var(--bg-card); border: 1px solid var(--line-soft); border-radius: 14px; padding: 18px 22px; display: flex; flex-direction: column; gap: 6px; min-width: 200px; }
 .ci-k { font-size: 12px; color: var(--fg-faint); letter-spacing: .08em; }
 .ci-v { font-size: 18px; font-family: var(--serif); font-weight: 600; }
