@@ -521,7 +521,6 @@ window.PORTFOLIO_DATA = {
   "comfy": {
     "title": "ComfyUI 本地工作流",
     "en": "COMFYUI WORKFLOWS",
-    "lede": "在线平台限流、改版或额度用尽时，本地通道能兜住交付。以下是我在 8GB 显存笔记本上跑通的几套自建工作流。",
     "items": [
       {
         "num": "01",

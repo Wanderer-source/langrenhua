@@ -12,10 +12,11 @@
   function $all(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
-  /* 导航：简化为 5 项，作品放第一位 */
+  /* 导航：6 项，ComfyUI 板块独立为「本地工作流」 */
   var navLinks = [
     { id: 'works', label: '作品' },
     { id: 'about', label: '关于' },
+    { id: 'comfy', label: '本地工作流' },
     { id: 'capabilities', label: '能力' },
     { id: 'method', label: '方法' },
     { id: 'contact', label: '联系' }
@@ -150,8 +151,8 @@
         '<p class="block-label">' + sc.desc + '</p></div>';
     }
 
-    comfyHtml = '<div class="block reveal" style="margin-top: 48px;"><div class="block-head"><h3>' + cf.title + '</h3><span class="block-count">' + cf.en + '</span></div>' +
-      '<p class="cf-lede">' + cf.lede + '</p>' +
+    comfyHtml = '<div class="block reveal" style="margin-top: 0;"><div class="block-head"><h3>' + cf.title + '</h3><span class="block-count">' + cf.en + '</span></div>' +
+      (cf.lede ? '<p class="cf-lede">' + cf.lede + '</p>' : '') +
       '<div class="cf-grid">' + cf.items.map(function (it) {
         return '<figure class="cf-card reveal">' +
           '<div class="cf-shot"><img loading="lazy" decoding="async" src="' + it.src + '" alt="' + it.name + '" onerror="this.style.opacity=0"></div>' +
@@ -183,7 +184,8 @@
     '<div class="prompt-grid"><pre class="prompt">' + esc(md.promptA) + '</pre>' +
     '<pre class="prompt">' + esc(md.promptD) + '</pre></div></div>';
 
-  $('#methodBox').innerHTML = wfStepsHtml + comfyHtml + toolsHtml + versionsHtml + promptHtml;
+  $('#methodBox').innerHTML = wfStepsHtml + toolsHtml + versionsHtml + promptHtml;
+  $('#comfyBox').innerHTML = comfyHtml;
 
   /* 联系 + 音乐 */
   var CDN = 'https://cdn.jsdelivr.net/gh/Wanderer-source/langrenhua@main/';
