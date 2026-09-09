@@ -12,11 +12,11 @@
   function $all(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
-  /* 导航：6 项，ComfyUI 板块独立为「本地工作流」 */
+  /* 导航：6 项，ComfyUI 板块独立为「本地工作流」，排在关于之前 */
   var navLinks = [
     { id: 'works', label: '作品' },
-    { id: 'about', label: '关于' },
     { id: 'comfy', label: '本地工作流' },
+    { id: 'about', label: '关于' },
     { id: 'capabilities', label: '能力' },
     { id: 'method', label: '方法' },
     { id: 'contact', label: '联系' }
