@@ -332,10 +332,26 @@ body > *:not(.bg-grid):not(.bg-noise):not(.bg-glow):not(.bg-orbs):not(.bg-partic
 .v-ratio { position: absolute; top: 10px; left: 10px; font-size: 11px; background: rgba(0,0,0,.6); color: #fff; padding: 3px 9px; border-radius: 12px; }
 .play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 62px; height: 62px; border-radius: 50%; border: none; background: color-mix(in srgb, var(--accent) 90%, #000); color: #fff; font-size: 22px; cursor: pointer; display: grid; place-items: center; box-shadow: 0 8px 30px rgba(0,0,0,.5); transition: transform .25s, background .25s; }
 .play-btn:hover { transform: translate(-50%,-50%) scale(1.12); background: var(--accent); }
+.v-body { display: block; }
 .v-meta { display: flex; justify-content: space-between; gap: 12px; padding: 14px 16px 4px; }
 .v-name { font-size: 15px; font-weight: 600; }
 .v-spec { font-size: 12px; color: var(--fg-faint); white-space: nowrap; }
-.v-desc { padding: 0 16px 16px; font-size: 13px; color: var(--fg-dim); }
+.v-tagline { padding: 0 16px 8px; font-size: 11.5px; letter-spacing: .06em; color: var(--accent); }
+.v-desc { padding: 0 16px 16px; font-size: 13px; color: var(--fg-dim); line-height: 1.75; }
+
+/* 主推短片：整行横向排布，容纳完整剧情简介 */
+.video-grid .v-feature { grid-column: 1 / -1; display: grid; grid-template-columns: 1.15fr 1fr; gap: 0; align-items: stretch; }
+.v-feature .poster-wrap { aspect-ratio: auto; height: 100%; min-height: 260px; }
+.v-feature .v-body { padding: 24px 26px; display: flex; flex-direction: column; justify-content: center; }
+.v-feature .v-meta { padding: 0 0 6px; align-items: baseline; }
+.v-feature .v-name { font-size: 19px; }
+.v-feature .v-tagline { padding: 0 0 12px; }
+.v-feature .v-desc { padding: 0; font-size: 13.5px; }
+@media (max-width: 860px) {
+  .video-grid .v-feature { grid-template-columns: 1fr; }
+  .v-feature .poster-wrap { aspect-ratio: 16 / 9; min-height: 0; }
+  .v-feature .v-body { padding: 18px 18px 20px; }
+}
 .v-err { display: grid; place-items: center; height: 100%; color: var(--fg-dim); font-size: 14px; padding: 20px; text-align: center; }
 .poster-wrap.img-fail { background: repeating-linear-gradient(45deg,#16181d,#16181d 10px,#1a1d23 10px,#1a1d23 20px); }
 

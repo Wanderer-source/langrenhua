@@ -112,16 +112,19 @@
     var cover = v.cover || ('assets/poster/' + enc(v.file) + '.jpg');
     var coverCdn = cdn(cover);
     var src = 'assets/video/' + enc(v.file) + '.mp4';
-    var cls = isShort ? 'v-item v-short' : 'v-item';
+    var cls = (isShort ? 'v-item v-short' : 'v-item') + (v.feat ? ' v-feature' : '');
     return '<div class="' + cls + '" data-video="' + src + '" data-name="' + (v.name || v.file) + '">' +
       '<div class="poster-wrap">' +
       '<img class="poster" loading="lazy" decoding="async" src="' + coverCdn + '" alt="' + (v.name || '') + ' 封面" onerror="this.onerror=null;this.src=\'' + cover + '\';this.closest(\'.poster-wrap\').classList.add(\'img-fail\')">' +
       '<span class="v-ratio">' + (v.ratio || '16:9') + '</span>' +
       '<button class="play-btn" type="button" aria-label="播放 ' + (v.name || '') + '">▶</button>' +
       '</div>' +
+      '<div class="v-body">' +
       '<div class="v-meta"><span class="v-name">' + (v.name || v.file) + '</span>' +
       '<span class="v-spec">' + (v.spec || '') + '</span></div>' +
+      (v.tag ? '<p class="v-tagline">' + v.tag + '</p>' : '') +
       (v.desc ? '<p class="v-desc">' + v.desc + '</p>' : '') +
+      '</div>' +
       '</div>';
   }
 
