@@ -317,7 +317,7 @@
       if (e.key === 'ArrowLeft') nav(-1);
       if (e.key === 'ArrowRight') nav(1);
     });
-    function closeLB() { lb.classList.remove('open'); lb.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; lbImg.src = ''; }
+    function closeLB() { lb.classList.remove('open'); lb.setAttribute('aria-hidden', 'true'); document.body.style.overflow = document.querySelector('.contact-drawer.open') ? 'hidden' : ''; lbImg.src = ''; }
   }
 
   function initReveal() {
@@ -991,11 +991,23 @@
           '<img class="cd-qr" src="' + esc(c.qr) + '" alt="微信二维码" onerror="this.style.display=\'none\'">' +
           '<span class="cd-tip">扫码加微信</span></div>' +
         '<div class="cd-resume">' +
-          '<span class="cd-resume-name">孙国华简历</span>' +
-          '<div class="cd-resume-actions">' +
-            '<a class="btn btn-primary" href="' + esc(CDN + c.resume.pdf) + '" target="_blank" rel="noopener">查看 PDF</a>' +
-            '<a class="btn btn-ghost" href="' + esc(c.resume.docx) + '" download>下载 Word 版</a>' +
+          '<div class="cd-resume-head">' +
+            '<span class="cd-resume-name">孙国华简历</span>' +
+            '<a class="btn btn-ghost btn-sm" href="' + esc(c.resume.docx) + '" download>下载 Word 版</a>' +
           '</div>' +
+          '<div class="cd-resume-gallery">' +
+            (function () {
+              var n = c.resume.pages || 0, base = c.resume.imgBase || '', html = '';
+              for (var i = 1; i <= n; i++) {
+                var src = base + i + '.png';
+                html += '<img class="cd-resume-page" src="' + esc(src) + '" ' +
+                  'data-lb data-group="resume" data-full="' + esc(src) + '" ' +
+                  'alt="孙国华简历 第' + i + '页" loading="lazy">';
+              }
+              return html;
+            })() +
+          '</div>' +
+          '<a class="cd-resume-pdf" href="' + esc(CDN + c.resume.pdf) + '" target="_blank" rel="noopener">下载 PDF 版 ↗</a>' +
         '</div>' +
       '</div>';
 
@@ -1023,7 +1035,6 @@
     fab.addEventListener('click', function (e) { e.stopPropagation(); setOpen(!open); });
     drawer.querySelector('.cd-close').addEventListener('click', function () { setOpen(false); });
     backdrop.addEventListener('click', function () { setOpen(false); });
-    drawer.addEventListener('click', function (e) { e.stopPropagation(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && open) setOpen(false); });
   }
 

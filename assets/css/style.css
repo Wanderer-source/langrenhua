@@ -755,7 +755,29 @@ body > *:not(.bg-grid):not(.bg-noise):not(.bg-glow):not(.bg-orbs):not(.bg-partic
   gap: 12px;
 }
 .cd-resume-name { font-family: var(--serif); font-size: 17px; font-weight: 700; color: var(--fg); }
-.cd-resume-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.cd-resume-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.cd-resume-gallery { display: flex; flex-direction: column; gap: 10px; }
+.cd-resume-page {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid var(--line-soft);
+  background: #fff;
+  cursor: zoom-in;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+.cd-resume-page:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.3); }
+.cd-resume-pdf {
+  align-self: flex-start;
+  font-size: 13px;
+  color: var(--fg-dim);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--line);
+  padding-bottom: 1px;
+  transition: color .2s, border-color .2s;
+}
+.cd-resume-pdf:hover { color: var(--accent); border-color: var(--accent); }
+.btn-sm { padding: 6px 12px; font-size: 13px; }
 
 /* ---------- 子页底部返回（滑到最底部也有返回入口） ---------- */
 

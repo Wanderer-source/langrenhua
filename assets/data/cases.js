@@ -74,7 +74,9 @@ window.PORTFOLIO_DATA = {
       "qr": "assets/img/wechat-qr.jpg",
       "resume": {
         "pdf": "assets/file/孙国华_简历.pdf",
-        "docx": "assets/file/孙国华_简历.docx"
+        "docx": "assets/file/孙国华_简历.docx",
+        "imgBase": "assets/file/resume-p",
+        "pages": 2
       }
     },
     "music": {
