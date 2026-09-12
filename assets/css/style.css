@@ -61,7 +61,7 @@ img { display: block; max-width: 100%; }
 .bg-fx {
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
 }
-body > *:not(.bg-grid):not(.bg-noise):not(.bg-glow):not(.bg-orbs):not(.bg-particles):not(.bg-fx):not(.bg-aurora):not(.cursor-glow):not(.cursor-ring):not(.bgm):not(.nav):not(.case-side-back):not(.lightbox):not(.progress) { position: relative; z-index: 1; }
+body > *:not(.bg-grid):not(.bg-noise):not(.bg-glow):not(.bg-orbs):not(.bg-particles):not(.bg-fx):not(.bg-aurora):not(.cursor-glow):not(.cursor-ring):not(.bgm):not(.nav):not(.case-side-back):not(.fab-contact):not(.contact-drawer):not(.contact-backdrop):not(.lightbox):not(.progress) { position: relative; z-index: 1; }
 
 /* 全站动态极光背景：fixed 层，滚动时始终流动，呼应首屏视觉（方案A下 bg-glow 被隐藏，此层补上"活"感） */
 .bg-aurora { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
@@ -649,6 +649,113 @@ body > *:not(.bg-grid):not(.bg-noise):not(.bg-glow):not(.bg-orbs):not(.bg-partic
   background: color-mix(in srgb, var(--bg) 96%, transparent);
   padding-left: 18px;
 }
+
+/* ---------- 悬浮「联系我」按钮（右边缘，垂直居中，镜像 case-side-back） ---------- */
+.fab-contact {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 60;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 14px 10px;
+  border: 1px solid var(--line);
+  border-right: 0;
+  border-radius: 14px 0 0 14px;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: var(--fg);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: -4px 0 20px rgba(0,0,0,.35);
+  cursor: pointer;
+  transition: color .2s, background .2s, padding .2s;
+}
+.fab-contact-ico { font-size: 17px; line-height: 1; }
+.fab-contact-txt { line-height: 1; }
+.fab-contact:hover {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--bg) 96%, transparent);
+  padding-right: 16px;
+}
+
+/* ---------- 联系抽屉 + 遮罩 ---------- */
+.contact-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(0,0,0,.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .25s ease, visibility .25s ease;
+}
+.contact-backdrop.open { opacity: 1; visibility: visible; }
+
+.contact-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 360px;
+  max-width: 88vw;
+  z-index: 95;
+  display: flex;
+  flex-direction: column;
+  background: color-mix(in srgb, var(--bg) 92%, #000 6%);
+  border-left: 1px solid var(--line);
+  box-shadow: -16px 0 48px rgba(0,0,0,.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transform: translateX(100%);
+  transition: transform .3s cubic-bezier(.2,.7,.2,1);
+}
+.contact-drawer.open { transform: translateX(0); }
+.cd-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 24px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.cd-title { font-family: var(--serif); font-size: 22px; font-weight: 700; color: var(--fg); }
+.cd-close {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--fg-dim);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all .2s;
+}
+.cd-close:hover { color: var(--accent); border-color: var(--accent); }
+.cd-body { padding: 24px; display: flex; flex-direction: column; gap: 18px; overflow-y: auto; }
+.cd-item { display: flex; flex-direction: column; gap: 6px; }
+.cd-k { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg-faint); }
+.cd-v { font-size: 16px; color: var(--fg); text-decoration: none; transition: color .2s; }
+.cd-v:hover { color: var(--accent); }
+.cd-wechat { align-items: flex-start; }
+.cd-qr { width: 140px; height: 140px; border-radius: 12px; border: 1px solid var(--line-soft); background: #fff; object-fit: contain; }
+.cd-tip { font-size: 12px; color: var(--fg-faint); }
+.cd-resume {
+  margin-top: 6px;
+  padding: 18px;
+  border: 1px solid var(--line-soft);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.cd-resume-name { font-family: var(--serif); font-size: 17px; font-weight: 700; color: var(--fg); }
+.cd-resume-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 
 /* ---------- 子页底部返回（滑到最底部也有返回入口） ---------- */
 

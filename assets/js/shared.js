@@ -960,6 +960,73 @@
     window.addEventListener('resize', update);
   }
 
+  /* ---------- 悬浮「联系我」按钮 + 抽屉（全站：首页与子页通用） ----------
+     效果对齐 .case-side-back：固定右边缘、垂直居中；点击从右侧滑出抽屉，
+     内含联系方式 + 简历（显示名「孙国华简历」）。简历链接复用 index.js 写法：
+     PDF 走 jsDelivr CDN，DOCX 走相对路径下载。 */
+  function initContactFab() {
+    var c = D.meta && D.meta.contact;
+    if (!c) return;
+    var CDN = 'https://cdn.jsdelivr.net/gh/Wanderer-source/langrenhua@main/';
+
+    var backdrop = document.createElement('div');
+    backdrop.className = 'contact-backdrop';
+    backdrop.setAttribute('aria-hidden', 'true');
+
+    var drawer = document.createElement('aside');
+    drawer.className = 'contact-drawer';
+    drawer.setAttribute('aria-hidden', 'true');
+    drawer.setAttribute('aria-label', '联系方式与简历');
+    drawer.innerHTML =
+      '<div class="cd-head">' +
+        '<span class="cd-title">联系我</span>' +
+        '<button class="cd-close" type="button" aria-label="关闭">✕</button>' +
+      '</div>' +
+      '<div class="cd-body">' +
+        '<div class="cd-item"><span class="cd-k">邮箱</span>' +
+          '<a class="cd-v" href="mailto:' + esc(c.email) + '">' + esc(c.email) + '</a></div>' +
+        '<div class="cd-item"><span class="cd-k">电话</span>' +
+          '<a class="cd-v" href="tel:' + esc(c.phone) + '">' + esc(c.phone) + '</a></div>' +
+        '<div class="cd-item cd-wechat"><span class="cd-k">微信</span>' +
+          '<img class="cd-qr" src="' + esc(c.qr) + '" alt="微信二维码" onerror="this.style.display=\'none\'">' +
+          '<span class="cd-tip">扫码加微信</span></div>' +
+        '<div class="cd-resume">' +
+          '<span class="cd-resume-name">孙国华简历</span>' +
+          '<div class="cd-resume-actions">' +
+            '<a class="btn btn-primary" href="' + esc(CDN + c.resume.pdf) + '" target="_blank" rel="noopener">查看 PDF</a>' +
+            '<a class="btn btn-ghost" href="' + esc(c.resume.docx) + '" download>下载 Word 版</a>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+
+    var fab = document.createElement('button');
+    fab.className = 'fab-contact';
+    fab.type = 'button';
+    fab.setAttribute('aria-label', '联系我');
+    fab.setAttribute('aria-expanded', 'false');
+    fab.innerHTML = '<span class="fab-contact-ico">✉</span><span class="fab-contact-txt">联系我</span>';
+
+    document.body.appendChild(backdrop);
+    document.body.appendChild(drawer);
+    document.body.appendChild(fab);
+
+    var open = false;
+    function setOpen(v) {
+      open = v;
+      fab.setAttribute('aria-expanded', v ? 'true' : 'false');
+      drawer.classList.toggle('open', v);
+      backdrop.classList.toggle('open', v);
+      drawer.setAttribute('aria-hidden', v ? 'false' : 'true');
+      backdrop.setAttribute('aria-hidden', v ? 'false' : 'true');
+      document.body.style.overflow = v ? 'hidden' : '';
+    }
+    fab.addEventListener('click', function (e) { e.stopPropagation(); setOpen(!open); });
+    drawer.querySelector('.cd-close').addEventListener('click', function () { setOpen(false); });
+    backdrop.addEventListener('click', function () { setOpen(false); });
+    drawer.addEventListener('click', function (e) { e.stopPropagation(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && open) setOpen(false); });
+  }
+
   function bindAll() {
     bindVideos();
     bindLightbox();
@@ -971,6 +1038,7 @@
     initBackgroundFX();
     initCursorFX();
     initBGM();
+    initContactFab();
     initNavToggle();
     initScrollSpy();
   }
